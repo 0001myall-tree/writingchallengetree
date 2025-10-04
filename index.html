@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>글쓰기 훈련 챌린지 — 단거리/마라톤/아이디어</title>
+  <title>글쓰기 루틴 챌린지 — 단거리/마라톤/아이디어(~2025.10까지 beta test)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -182,6 +182,18 @@
     .list .item{background:#171726; border-color:#2a2740}
     .list .item p{color:#bbb9d4}
   }
+/* footer sponsor badge */
+footer .links { align-items: center; }
+footer .sep { opacity:.45; user-select:none; }
+.sponsor-badge{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:6px 10px; border:1px solid #e9e6f7; border-radius:999px;
+  background:#fff; color:#3f35a4; font-weight:700; font-size:12px;
+  box-shadow:0 4px 10px rgba(63,53,164,.06); text-decoration:none;
+}
+@media (prefers-color-scheme: dark){
+  .sponsor-badge{ background:#181828; color:#cfcaff; border-color:#2a2740; }
+}
 
   /* Utilities */
   .hidden{display:none !important;}
@@ -189,7 +201,7 @@
 </head>
 <body>
   <header>
-    <h1 data-i18n="title">글쓰기 훈련 챌린지</h1>
+    <h1 data-i18n="title">글쓰기 루틴 챌린지</h1>
     <p data-i18n="subtitle">단거리 / 마라톤 / 아이디어 · Hard/Soft 모드 · 결과 공유</p>
   </header>
 
@@ -325,6 +337,7 @@
         </div>
       </div>
 
+
       <!-- 결과 화면 -->
       <div class="card hidden" id="resultCard">
         <h3 id="resultHeadline">결과</h3>
@@ -341,12 +354,13 @@
 
     </section>
 
+
     <!-- ============ SECTION: HOW TO USE (Content for AdSense) ============ -->
     <section id="section-howto" class="hidden">
       <div class="card">
         <h2 data-i18n="howto_h2">이 도구 활용법</h2>
         <p class="muted" data-i18n="howto_intro">
-          이 페이지는 글쓰기 속도를 높이고 꾸준함을 만드는 작은 훈련장입니다. 아래 가이드를 참고해 자신에게 맞는 규칙을 세워보세요.
+          이 페이지는 글쓰기 속도를 가로막는 자기 검열을 줄이고 집중력을 높이는 작은 훈련장입니다. 아래 가이드를 참고해 자신에게 맞는 규칙을 세워보세요.
         </p>
         <div class="hr"></div>
         <div class="list">
@@ -412,25 +426,97 @@
         </div>
       </div>
 
-  <footer>
-    <div class="links">
-      <a href="#" id="open-privacy" data-i18n="footer_privacy">개인정보 처리방침</a>
-      <a href="#" id="open-terms" data-i18n="footer_terms">이용약관</a>
-      <a href="#" id="open-contact" data-i18n="footer_contact">문의</a>
-    </div>
-    <p class="muted" style="margin-top:8px" data-i18n="footer_note">
-      본 사이트는 교육/창작 훈련을 위한 정적 웹 앱입니다. 폰트는 Google Fonts(OFL) 사용.
-    </p>
-  </footer>
 
-  <!-- ======================= SCRIPT ======================= -->
+</section> <!-- end of section-guides -->
+
+<!-- SECTION: AD SLOT -->
+<section id="section-ads" class="hidden"></section>
+
+
+<!-- ============ SECTION: PRIVACY (Inline) ============ -->
+<section id="section-privacy" class="hidden">
+  <div class="card">
+    <h2 data-i18n="privacy_h2">개인정보 처리방침</h2>
+    <div class="hr"></div>
+    <div class="list">
+      <div class="item">
+        <h4 data-i18n="privacy_what_title">수집하는 항목</h4>
+        <p data-i18n="privacy_what_body">
+          본 앱은 기본적으로 사용자의 입력 내용을 로컬에서만 처리하며, 서버로 전송하지 않습니다.
+          제3자 스크립트(예: 광고, 분석)를 도입할 경우 해당 스크립트가 수집하는 항목과 목적을 명시합니다.
+        </p>
+      </div>
+      <div class="item">
+        <h4 data-i18n="privacy_purpose_title">이용 목적</h4>
+        <p data-i18n="privacy_purpose_body">
+          글쓰기 훈련 제공, 오류 분석 및 품질 개선(선택적)
+        </p>
+      </div>
+      <div class="item">
+        <h4 data-i18n="privacy_third_title">제3자 제공/처리</h4>
+        <p data-i18n="privacy_third_body">
+          현재 본 서비스는 사용자의 작성 내용을 서버로 전송하지 않으며,
+    <b>제3자에게 개인정보를 제공하거나 외부 위탁 처리를 수행하지 않습니다.</b><br>
+    추후 외부 서비스를 도입할 경우, 제공(또는 수집) 항목, 처리 목적, 보관 기간, 제공(또는 보관) 위치(국외 포함)를 사전 업데이트하여 고지하겠습니다.
+        </p>
+      </div>
+      <div class="item">
+        <h4 data-i18n="privacy_retention_title">보관 및 파기</h4>
+        <p data-i18n="privacy_retention_body">
+          본 사이트는 아직 회원가입, 로그인, 서버 전송 기능이 없으며, 별도로 수집·보관되는 개인정보는 없습니다.
+    사용자의 작성 내용은 <b>브라우저 로컬 저장소(localStorage)</b>에만 일시적으로 보관됩니다. 페이지 새로고침 또는 브라우저 캐시 삭제 시 해당 데이터는 자동으로 삭제됩니다. 
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION: TERMS (Inline) ============ -->
+<section id="section-terms" class="hidden">
+  <div class="card">
+    <h2 data-i18n="terms_h2">이용약관</h2>
+    <div class="hr"></div>
+    <div class="list">
+      <div class="item">
+        <h4 data-i18n="terms_use_title">서비스 이용</h4>
+        <p data-i18n="terms_use_body">
+          본 앱은 개인 창작 훈련용 도구입니다. 불법·유해한 용도로의 사용을 금지합니다.
+        </p>
+      </div>
+      <div class="item">
+        <h4 data-i18n="terms_account_title">계정/데이터</h4>
+        <p data-i18n="terms_account_body">
+          서버 저장 기능이 없는 정적 앱입니다. 작성 내용은 브라우저(로컬)에만 존재하므로,
+          브라우저/기기 교체·캐시 삭제 전에 백업을 권장합니다.
+        </p>
+      </div>
+      <div class="item">
+        <h4 data-i18n="terms_liability_title">면책</h4>
+        <p data-i18n="terms_liability_body">
+          서비스는 있는 그대로 제공되며, 데이터 손실·중단 등으로 인한 손해에 대해 책임을 지지 않습니다.
+        </p>
+      </div>
+      <div class="item">
+        <h4 data-i18n="terms_change_title">약관 변경</h4>
+        <p data-i18n="terms_change_body">
+          중요 변경 시 사전 고지합니다. 변경일 이후 지속 이용 시 변경에 동의한 것으로 간주됩니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
   <script>
   // ---------- Simple Router (tabs) ----------
-  const sections = {
-    tool: document.getElementById('section-tool'),
-    howto: document.getElementById('section-howto'),
-    guides: document.getElementById('section-guides'),
-  };
+ const sections = {
+  tool:    document.getElementById('section-tool'),
+  howto:   document.getElementById('section-howto'),
+  guides:  document.getElementById('section-guides'),
+  privacy: document.getElementById('section-privacy'),
+  terms:   document.getElementById('section-terms'),
+};
+const DRAFT_KEY = 'wtc:draft';
+const LANG_KEY  = 'wtc:lang'; // 이미 쓰고 있으면 중복 추가 X
   const tabs = Array.from(document.querySelectorAll('.tab'));
   function go(route){
     Object.values(sections).forEach(s=>s.classList.add('hidden'));
@@ -444,11 +530,16 @@
     const hash = location.hash.replace('#','');
     go( (hash && sections[hash]) ? hash : 'tool' );
   });
+// 해시가 바뀌면 해당 섹션 보여주기 (푸터 링크 #privacy, #terms 대응)
+window.addEventListener('hashchange', ()=>{
+  const hash = location.hash.replace('#','');
+  if (sections[hash]) go(hash);
+});
 
   // ---------- i18n (KR/EN toggle) ----------
   const dict = {
     ko: {
-      title:'글쓰기 훈련 챌린지',
+      title:'글쓰기 루틴 챌린지',
       subtitle:'단거리 / 마라톤 / 아이디어 · Hard/Soft 모드 · 결과 공유',
       tab_tool:'Tool', tab_howto:'How to Use', tab_guides:'Writing Guides',
       mode_title:'모드 선택',
@@ -482,7 +573,7 @@
       btn_restart:'다시 시작',
 
       howto_h2:'이 도구 활용법',
-      howto_intro:'이 페이지는 글쓰기 속도를 높이고 꾸준함을 만드는 작은 훈련장입니다. 아래 가이드를 참고해 자신에게 맞는 규칙을 세워보세요.',
+      howto_intro:'이 페이지는 글쓰기 속도를 가로막는 자기 검열을 줄이고 집중력을 높이는 작은 훈련장입니다. 아래 가이드를 참고해 자신에게 맞는 규칙을 세워보세요.',
       howto_1_title:'1) 목표 정하기',
       howto_1_body:'단거리(Sprint)는 ‘중단 금지’에 집중, 마라톤(Marathon)은 ‘총 글자수’를 목표로 합니다. 아이디어 모드는 자유롭게 브레인스토밍하세요.',
       howto_2_title:'2) 환경 세팅',
@@ -506,7 +597,7 @@
       apply_marathon:'Marathon(마라톤)', apply_marathon_body:'미드포인트·클라이맥스 등 큰 비트 초안에 좋습니다. 목표 글자수와 남은 시간을 보며 페이스를 조절하세요.',
       apply_idea:'Idea(아이디어)', apply_idea_body:'로그라인/캐릭터 결핍/테마 문장을 메모로 뽑아내는 시간. 1분 이상 멈추지 않도록 키워드만이라도 계속 적습니다.',
 
-      footer_privacy:'개인정보 처리방침', footer_terms:'이용약관', footer_contact:'문의',
+      footer_privacy:'개인정보 처리방침', footer_terms:'이용약관', footer_contact:'문의:0001mynew@Naver.com',
       footer_note:'본 사이트는 교육/창작 훈련을 위한 정적 웹 앱입니다. 폰트는 Google Fonts(OFL) 사용.'
     },
     en: {
@@ -544,7 +635,7 @@
       btn_restart:'Restart',
 
       howto_h2:'How to Use This Tool',
-      howto_intro:'This mini trainer helps you write faster and more consistently. Set rules that fit your workflow.',
+      howto_intro:'This tool helps you conquer self-censorship—the main barrier to writing speed—to improve focus and establish a consistent routine. Refer to the guide below to set your own rules.',
       howto_1_title:'1) Define Goals',
       howto_1_body:'Sprint focuses on “no stopping”; Marathon targets total characters; Idea mode is free brainstorming.',
       howto_2_title:'2) Prep Your Environment',
@@ -882,7 +973,7 @@
     }
     shareKakao.onclick = async ()=>{
       const text = getShareText();
-      const shareData = { title:(currentLang==='ko'?'글쓰기 훈련 챌린지':'Writing Training Challenge'), text, url: location.href };
+      const shareData = { title:(currentLang==='ko'?'글쓰기 루틴 챌린지':'Writing Routine Challenge'), text, url: location.href };
       if(navigator.share){
         try{ await navigator.share(shareData); return; }catch(e){}
       }
@@ -905,41 +996,25 @@
     };
   });
 
-  // Footer placeholder popups (simple)
-  function openInfo(title, body){
-    alert(`${title}\n\n${body}`);
-  }
-  document.getElementById('open-privacy').addEventListener('click', e=>{
-    e.preventDefault();
-    openInfo(
-      (currentLang==='ko'?'개인정보 처리방침':'Privacy Policy'),
-      (currentLang==='ko'
-        ? '이 사이트는 계정을 수집하지 않습니다. 브라우저 내 작성 텍스트는 서버에 저장되지 않습니다.'
-        : 'This site does not collect accounts. Text you write stays in your browser and is not stored on a server.')
-    );
-  });
-  document.getElementById('open-terms').addEventListener('click', e=>{
-    e.preventDefault();
-    openInfo(
-      (currentLang==='ko'?'이용약관':'Terms of Use'),
-      (currentLang==='ko'
-        ? '본 사이트는 “있는 그대로” 제공됩니다. 창작물의 저작권은 사용자가 보유합니다.'
-        : 'This site is provided “as is.” You retain copyright to your writing.')
-    );
-  });
-  document.getElementById('open-contact').addEventListener('click', e=>{
-    e.preventDefault();
-    openInfo(
-      (currentLang==='ko'?'문의':'Contact'),
-      (currentLang==='ko'
-        ? '문의: your@email.example'
-        : 'Contact: your@email.example')
-    );
-  });
+ 
   </script>
 
   <!-- === (선택) 여기에 AdSense 스니펫을 삽입하세요 ===
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXX" crossorigin="anonymous"></script>
   -->
+
+<!-- GLOBAL FOOTER -->
+<footer id="siteFooter">
+  <div class="links">
+    <a href="#privacy" data-i18n="footer_privacy">개인정보 처리방침</a>
+    <span class="sep">·</span>
+    <a href="#terms" data-i18n="footer_terms">이용약관</a>
+    <span class="sep">·</span>문의
+<span class="contact" data-i18n="footer_contact_label">:</span><span class="contact-email">0001mynew@naver.com</span>
+</div>
+  <p class="muted" style="margin-top:8px" data-i18n="footer_note">
+    본 사이트는 교육/창작 훈련을 위한 정적 웹 앱입니다. 폰트는 Google Fonts(OFL) 사용.
+  </p>
+</footer>
 </body>
 </html>
