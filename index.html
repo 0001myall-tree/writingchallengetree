@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W68PWCBX');</script>
+<!-- End Google Tag Manager -->
   <meta charset="UTF-8" />
-  <title>소설가 전용 3초 입력기 — 스프린트/마라톤/아이디어</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+  <title>글쓰기 루틴 챌린지 — 단거리/마라톤/아이디어</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
   <style>
   :root{
-    /* 고급 톤다운 팔레트 */
     --bg:#f6f5f3;
-    --card:#ffffffcc;          /* 살짝 투명감 */
+    --card:#ffffffcc;
     --ink:#2b2b2b;
     --muted:#7b7b7b;
-
-    --brand:#6b4de6;           /* 포인트 컬러 보랏빛 */
+    --brand:#6b4de6;
     --brand2:#a077ff;
     --ring:rgba(17, 16, 30, .06);
-
     --ok:#1a7f37;
     --danger:#e23e57;
-
-    /* 유리카드/그라데이션 깊이감 */
     --grad:linear-gradient(135deg, #6b4de6, #a077ff);
     --grad-soft:linear-gradient(180deg, rgba(255,255,255,.6), rgba(255,255,255,.3));
   }
-
-  /* 베이스 */
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
@@ -38,10 +38,10 @@
     -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
   }
 
-  /* 헤더 */
+  /* Header */
   header{
     position:relative;
-    text-align:center; padding:48px 16px 40px; color:#fff;
+    text-align:center; padding:56px 16px 46px; color:#fff;
     background:var(--grad);
     overflow:hidden;
   }
@@ -51,12 +51,34 @@
     filter:blur(40px);
   }
   header h1{
-    margin:0 0 10px; font-family:'Noto Serif KR', serif;
-    font-size:32px; letter-spacing:.2px
+    margin:0 0 8px; font-family:'Noto Serif KR', serif;
+    font-size:30px; letter-spacing:.2px
   }
   header p{margin:0; opacity:.9}
 
-  /* 레이아웃 카드(유리카드 느낌) */
+  /* Top bar (nav + lang) */
+  .topbar{
+    position:sticky; top:0; z-index:10;
+    background:rgba(255,255,255,.6); backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(0,0,0,.06);
+  }
+  .topbar-inner{
+    max-width:960px; margin:0 auto; padding:10px 16px;
+    display:flex; gap:8px; align-items:center; justify-content:space-between;
+  }
+  .tabs{display:flex; gap:6px; flex-wrap:wrap}
+  .tab{
+    background:#fff; color:#3f35a4; border:1px solid #e8e3ff;
+    border-radius:999px; padding:8px 14px; font-weight:700; cursor:pointer;
+    box-shadow:0 6px 12px rgba(63,53,164,.06); transition:filter .15s, transform .15s;
+  }
+  .tab:hover{filter:brightness(1.02); transform:translateY(-1px)}
+  .tab.active{background:linear-gradient(135deg,#f5f2ff,#fff); border-color:#cfc6ff}
+  .langbtn{
+    background:#181818; color:#fff; border:none; border-radius:999px;
+    padding:8px 12px; font-weight:800; letter-spacing:.2px; cursor:pointer;
+  }
+
   .wrap{max-width:920px; margin:-28px auto 28px; padding:0 16px}
   .card{
     backdrop-filter:saturate(160%) blur(6px);
@@ -66,8 +88,6 @@
     box-shadow:0 20px 40px var(--ring);
     padding:24px; margin-bottom:20px;
   }
-
-  /* 행/스택 */
   .row{display:flex; flex-wrap:wrap; gap:12px; align-items:center}
   .stack{display:flex; flex-direction:column; gap:16px}
 
@@ -77,7 +97,6 @@
   }
   label{font-weight:700; font-size:14px; color:#504e62}
 
-  /* 폼 요소 */
   select,input[type="number"]{
     padding:12px 14px; border:1px solid #e6e2f4; border-radius:12px; font-size:15px;
     background:#fff; min-width:140px; transition:border-color .15s, box-shadow .15s;
@@ -86,7 +105,6 @@
     outline:none; border-color:#c7b9ff; box-shadow:0 0 0 5px rgba(163,140,255,.18)
   }
 
-  /* 버튼 */
   button{
     background:var(--grad); color:#fff; border:none;
     border-radius:28px; padding:12px 20px; font-weight:800; letter-spacing:.2px;
@@ -101,16 +119,12 @@
   }
   button.danger{background:linear-gradient(135deg, #e23e57, #ff6a7b); box-shadow:0 10px 18px rgba(226,62,87,.18)}
 
-  /* 메타/텍스트 */
   .muted{color:var(--muted)}
   .center{text-align:center}
   .success{color:var(--ok); font-weight:800}
   .fail{color:var(--danger); font-weight:800}
   .hr{height:1px; background:linear-gradient(90deg, #eee 0%, #f6f5ff 50%, #eee 100%); margin:18px 0}
 
-.hidden { display: none !important; }
-
-  /* 통계 카드 */
   .stats{display:flex; gap:16px; flex-wrap:wrap; justify-content:center; margin-top:8px}
   .stat{
     background:var(--grad-soft); border:1px solid rgba(255,255,255,.7);
@@ -119,7 +133,6 @@
   }
   .timer{font-size:24px; font-weight:900; color:#e23e57; letter-spacing:.5px}
 
-  /* 에디터 */
   textarea{
     width:100%; min-height:360px; padding:18px 16px; font-size:16.5px; line-height:1.7;
     border:1px solid #ece8ff; border-radius:14px; resize:vertical; background:#fff;
@@ -127,20 +140,13 @@
   }
   textarea:focus{border-color:#c7b9ff; box-shadow:0 0 0 6px rgba(163,140,255,.16)}
 
-  /* 진행률 바 */
   .progress-wrap{width:100%; background:#f3f0ff; border-radius:12px; overflow:hidden; height:14px; border:1px solid #e8e3ff}
   .progress-bar{height:100%; width:0%; background:linear-gradient(90deg, #6b4de6, #a077ff); transition:width .2s ease}
   .progress-line{display:flex; justify-content:space-between; font-size:13px; color:#5d5778; margin-bottom:8px}
 
-  /* 난이도 블록(더 또렷하게 구분) */
-  .difficulty-block{
-    display:flex; align-items:center; gap:12px; padding:12px 0
-  }
-  .difficulty-block + .difficulty-block{
-    border-top:1px dashed #e6e2f4; margin-top:8px; padding-top:18px
-  }
+  .difficulty-block{display:flex; align-items:center; gap:12px; padding:12px 0}
+  .difficulty-block + .difficulty-block{border-top:1px dashed #e6e2f4; margin-top:8px; padding-top:18px}
 
-  /* 공유 버튼 */
   .share-buttons{display:flex; justify-content:center; gap:12px; margin-top:18px; flex-wrap:wrap}
   .share-buttons button{
     padding:10px 16px; border-radius:22px; font-size:14px;
@@ -149,516 +155,877 @@
   }
   .share-buttons button:hover{filter:brightness(1.02)}
 
-  /* 반응형 */
+  .list{display:grid; gap:10px}
+  .list .item{
+    border:1px solid #eee; border-radius:12px; padding:14px; background:#fff;
+  }
+  .list .item h4{margin:0 0 6px; font-size:16px; color:#2d267a}
+  .list .item p{margin:0; font-size:14px; color:#4d4a60}
+
+  footer{
+    margin:40px auto 48px; max-width:920px; padding:0 16px;
+    color:#5c5a6d; font-size:13px;
+  }
+  footer a{color:#4c40c6; text-decoration:none}
+  footer .links{display:flex; gap:12px; flex-wrap:wrap}
+
   @media (max-width:640px){
     header h1{font-size:24px}
     .stat{min-width:140px}
     textarea{min-height:320px}
   }
 
-  /* 다크 모드(시스템 연동) */
   @media (prefers-color-scheme: dark){
     :root{
       --bg:#12121a; --ink:#e9e9ef; --muted:#a6a6b3;
       --card:rgba(22,22,32,.6); --ring:rgba(0,0,0,.5);
     }
-    header::after{filter:blur(60px); opacity:.6}
     .card{border:1px solid rgba(255,255,255,.12)}
     select, input[type="number"], textarea{background:#171726; color:var(--ink); border-color:#2a2740}
     textarea:focus{box-shadow:0 0 0 6px rgba(107,77,230,.25)}
     .progress-wrap{background:#1c1b2a; border-color:#2a2740}
     .share-buttons button{background:#181828; color:#cfcaff; border-color:#2a2740}
     .difficulty-block + .difficulty-block{border-top-color:#2a2740}
+    .list .item{background:#171726; border-color:#2a2740}
+    .list .item p{color:#bbb9d4}
   }
-</style>
+/* footer sponsor badge */
+footer .links { align-items: center; }
+footer .sep { opacity:.45; user-select:none; }
+.sponsor-badge{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:6px 10px; border:1px solid #e9e6f7; border-radius:999px;
+  background:#fff; color:#3f35a4; font-weight:700; font-size:12px;
+  box-shadow:0 4px 10px rgba(63,53,164,.06); text-decoration:none;
+}
+@media (prefers-color-scheme: dark){
+  .sponsor-badge{ background:#181828; color:#cfcaff; border-color:#2a2740; }
+}
+
+  /* Utilities */
+  .hidden{display:none !important;}
+  </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W68PWCBX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
   <header>
-    <h1>소설가 전용 3초 입력기</h1>
-    <p>스프린트 / 마라톤 / 아이디어 · Hard/Soft 모드 · 결과 공유</p>
+    <h1 data-i18n="title">글쓰기 루틴 챌린지</h1>
+    <p data-i18n="subtitle">단거리 / 마라톤 / 아이디어 · Hard/Soft 모드 · 결과 공유(~10월까지 beta test)</p>
   </header>
+
+  <!-- Top nav & language -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div class="tabs">
+        <button class="tab active" data-route="tool" data-i18n="tab_tool">Tool</button>
+        <button class="tab" data-route="howto" data-i18n="tab_howto">How to Use</button>
+        <button class="tab" data-route="guides" data-i18n="tab_guides">Writing Guides</button>
+      </div>
+      <button id="langToggle" class="langbtn" aria-label="Toggle language">KR / EN</button>
+    </div>
+  </div>
 
   <div class="wrap">
 
-    <!-- 모드 선택 -->
-    <div class="card" id="modeCard">
-      <h2>모드 선택</h2>
-      <div class="stack">
+    <!-- ============ SECTION: TOOL (App) ============ -->
+    <section id="section-tool">
+
+      <!-- 모드 선택 -->
+      <div class="card" id="modeCard">
+        <h2 data-i18n="mode_title">모드 선택</h2>
+        <div class="stack">
+          <div class="row">
+            <button id="btnSprint" data-i18n="mode_sprint_btn">단거리 모드</button>
+            <span class="muted" data-i18n="mode_sprint_desc">· 3/5/10/20/30분 · <b>5초</b> 멈추면 실패</span>
+          </div>
+          <div class="row">
+            <button id="btnMarathon" data-i18n="mode_marathon_btn">마라톤 모드</button>
+            <span class="muted" data-i18n="mode_marathon_desc">· 목표 글자수 + 40/60/90/120분 · 미달 시 실패</span>
+          </div>
+          <div class="row">
+            <button id="btnIdea" data-i18n="mode_idea_btn">아이디어 모드</button>
+            <span class="muted" data-i18n="mode_idea_desc">· 10/20/30분 · <b>1분</b> 무입력 시 실패</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 난이도 선택 -->
+      <div class="card hidden" id="difficultyCard">
+        <h3 data-i18n="difficulty_title">난이도 선택</h3>
+        <div class="difficulty-block">
+          <button id="btnHard">🔥 <span data-i18n="difficulty_hard">Hard</span></button>
+          <span class="muted" data-i18n="difficulty_hard_desc">실패 시 원고 삭제</span>
+        </div>
+        <div class="difficulty-block">
+          <button id="btnSoft">🌱 <span data-i18n="difficulty_soft">Soft</span></button>
+          <span class="muted" data-i18n="difficulty_soft_desc">실패해도 원고 보존 (메시지만 표시)</span>
+        </div>
+      </div>
+
+      <!-- 단거리 설정 -->
+      <div class="card hidden" id="sprintSetup">
+        <h3 data-i18n="sprint_title">단거리 설정</h3>
         <div class="row">
-          <button id="btnSprint">스프린트 모드</button>
-          <!-- ▼ 문구도 5초로 수정 -->
-          <span class="muted">· 3/5/10/20/30분 · <b>5초</b> 멈추면 실패</span>
+          <label for="sprintDuration" data-i18n="label_session_time">세션 시간</label>
+          <select id="sprintDuration">
+            <option value="180" data-i18n="min_3">3분</option>
+            <option value="300" selected data-i18n="min_5">5분</option>
+            <option value="600" data-i18n="min_10">10분</option>
+            <option value="1200" data-i18n="min_20">20분</option>
+            <option value="1800" data-i18n="min_30">30분</option>
+          </select>
+          <button id="startSprint" data-i18n="btn_start">시작</button>
+          <button class="ghost" id="backFromSprint" data-i18n="btn_back">뒤로</button>
         </div>
+        <div class="hr"></div>
+        <p class="muted" data-i18n="sprint_rule">타이핑이 <b>5초 이상</b> 멈추면 즉시 실패.</p>
+      </div>
+
+      <!-- 마라톤 설정 -->
+      <div class="card hidden" id="marathonSetup">
+        <h3 data-i18n="marathon_title">마라톤 설정</h3>
         <div class="row">
-          <button id="btnMarathon">마라톤 모드</button>
-          <span class="muted">· 목표 글자수 + 40/60/90/120분 · 미달 시 실패</span>
+          <label for="targetChars" data-i18n="label_target_chars">목표 글자수</label>
+          <input type="number" id="targetChars" min="500" step="100" value="4000" />
+          <label for="marathonDuration" style="margin-left:10px" data-i18n="label_session_time">세션 시간</label>
+          <select id="marathonDuration">
+            <option value="2400" selected data-i18n="min_40">40분</option>
+            <option value="3600" data-i18n="hr_1">1시간</option>
+            <option value="5400" data-i18n="hr_1_5">1시간 30분</option>
+            <option value="7200" data-i18n="hr_2">2시간</option>
+          </select>
+          <button id="startMarathon" data-i18n="btn_start">시작</button>
+          <button class="ghost" id="backFromMarathon" data-i18n="btn_back">뒤로</button>
         </div>
+        <div class="hr"></div>
+        <p class="muted" data-i18n="marathon_rule"><b>시간 내 목표 글자수 미달</b> 시 실패 처리.</p>
+      </div>
+
+      <!-- 아이디어 설정 -->
+      <div class="card hidden" id="ideaSetup">
+        <h3 data-i18n="idea_title">아이디어 모드 설정</h3>
         <div class="row">
-          <button id="btnIdea">아이디어 모드</button>
-          <span class="muted">· 10/20/30분 · <b>1분</b> 무입력 시 실패</span>
+          <label for="ideaDuration" data-i18n="label_session_time">세션 시간</label>
+          <select id="ideaDuration" aria-label="아이디어 시간">
+            <option value="600" selected data-i18n="min_10">10분</option>
+            <option value="1200" data-i18n="min_20">20분</option>
+            <option value="1800" data-i18n="min_30">30분</option>
+          </select>
+          <button id="startIdea" data-i18n="btn_start">시작</button>
+          <button class="ghost" id="backFromIdea" data-i18n="btn_back">뒤로</button>
         </div>
-      </div>
-    </div>
-
-    <!-- 난이도 선택 -->
-    <div class="card hidden" id="difficultyCard">
-      <h3>난이도 선택</h3>
-      <div class="difficulty-block">
-        <button id="btnHard">🔥 Hard</button>
-        <span class="muted">실패 시 원고 삭제</span>
-      </div>
-      <div class="difficulty-block">
-        <button id="btnSoft">🌱 Soft</button>
-        <span class="muted">실패해도 원고 보존 (메시지만 표시)</span>
-      </div>
-    </div>
-
-    <!-- 스프린트 설정 -->
-    <div class="card hidden" id="sprintSetup">
-      <h3>스프린트 설정</h3>
-      <div class="row">
-        <label for="sprintDuration">세션 시간</label>
-        <select id="sprintDuration">
-          <option value="180">3분</option>
-          <option value="300" selected>5분</option>
-          <option value="600">10분</option>
-          <!-- ▼ 추가: 20분, 30분 -->
-          <option value="1200">20분</option>
-          <option value="1800">30분</option>
-        </select>
-        <button id="startSprint">시작</button>
-        <button class="ghost" id="backFromSprint">뒤로</button>
-      </div>
-      <div class="hr"></div>
-      <!-- ▼ 문구도 5초로 수정 -->
-      <p class="muted">타이핑이 <b>5초 이상</b> 멈추면 즉시 실패.</p>
-    </div>
-
-    <!-- 마라톤 설정 -->
-    <div class="card hidden" id="marathonSetup">
-      <h3>마라톤 설정</h3>
-      <div class="row">
-        <label for="targetChars">목표 글자수</label>
-        <input type="number" id="targetChars" min="500" step="100" value="4000" />
-        <label for="marathonDuration" style="margin-left:10px">세션 시간</label>
-        <select id="marathonDuration">
-          <option value="2400" selected>40분</option>
-          <option value="3600">1시간</option>
-          <option value="5400">1시간 30분</option>
-          <option value="7200">2시간</option>
-        </select>
-        <button id="startMarathon">시작</button>
-        <button class="ghost" id="backFromMarathon">뒤로</button>
-      </div>
-      <div class="hr"></div>
-      <p class="muted"><b>시간 내 목표 글자수 미달</b> 시 실패 처리.</p>
-    </div>
-
-    <!-- 아이디어 설정 -->
-    <div class="card hidden" id="ideaSetup">
-      <h3>아이디어 모드 설정</h3>
-      <div class="row">
-        <label for="ideaDuration">세션 시간</label>
-        <select id="ideaDuration" aria-label="아이디어 시간">
-          <option value="600" selected>10분</option>
-          <option value="1200">20분</option>
-          <option value="1800">30분</option>
-        </select>
-        <button id="startIdea">시작</button>
-        <button class="ghost" id="backFromIdea">뒤로</button>
-      </div>
-      <div class="hr"></div>
-      <p class="muted">규칙: <b>1분 이상</b> 키 입력이 없으면 즉시 실패. (글자수 목표 없음)</p>
-    </div>
-
-    <!-- 글쓰기 화면 -->
-    <div class="card hidden" id="writingCard">
-      <h3 id="sessionTitle">세션 진행중</h3>
-      <div class="stats">
-        <div class="stat"><div class="muted">남은 시간</div><div class="timer" id="timeLeft">--:--</div></div>
-        <div class="stat"><div class="muted">현재 글자수</div><div id="charCount">0</div></div>
-        <div class="stat hidden" id="goalBox"><div class="muted">목표 글자수</div><div id="goalChars">0</div></div>
+        <div class="hr"></div>
+        <p class="muted" data-i18n="idea_rule">규칙: <b>1분 이상</b> 키 입력이 없으면 즉시 실패. (글자수 목표 없음)</p>
       </div>
 
-      <div id="progressWrap" class="hidden">
-        <div class="progress-line">
-          <span id="progressLabel">진행: 0 / 0 (0%)</span>
-          <span class="muted" id="paceHint"></span>
+      <!-- 글쓰기 화면 -->
+      <div class="card hidden" id="writingCard">
+        <h3 id="sessionTitle" data-i18n="session_running">세션 진행중</h3>
+        <div class="stats">
+          <div class="stat"><div class="muted" data-i18n="label_time_left">남은 시간</div><div class="timer" id="timeLeft">--:--</div></div>
+          <div class="stat"><div class="muted" data-i18n="label_char_count">현재 글자수</div><div id="charCount">0</div></div>
+          <div class="stat hidden" id="goalBox"><div class="muted" data-i18n="label_goal_chars">목표 글자수</div><div id="goalChars">0</div></div>
         </div>
-        <div class="progress-wrap" aria-label="진행률">
-          <div class="progress-bar" id="progressBar"></div>
+
+        <div id="progressWrap" class="hidden">
+          <div class="progress-line">
+            <span id="progressLabel">진행: 0 / 0 (0%)</span>
+            <span class="muted" id="paceHint"></span>
+          </div>
+          <div class="progress-wrap" aria-label="진행률">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+        <textarea id="editor" placeholder="여기에 원고/아이디어를 작성하세요..." data-i18n-placeholder="placeholder_editor"></textarea>
+        <p id="statusLine" class="center muted" data-i18n="status_waiting">입력 대기 중…</p>
+        <div class="center">
+          <button class="danger" id="giveUp" data-i18n="btn_giveup">포기(즉시 종료)</button>
         </div>
       </div>
 
-      <div class="hr"></div>
-      <textarea id="editor" placeholder="여기에 원고/아이디어를 작성하세요..."></textarea>
-      <p id="statusLine" class="center muted">입력 대기 중…</p>
-      <div class="center">
-        <button class="danger" id="giveUp">포기(즉시 종료)</button>
+
+      <!-- 결과 화면 -->
+      <div class="card hidden" id="resultCard">
+        <h3 id="resultHeadline">결과</h3>
+        <p id="resultDetail" class="center"></p>
+        <div class="center" style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:8px">
+          <button id="restart" data-i18n="btn_restart">다시 시작</button>
+        </div>
+        <div class="share-buttons">
+          <button id="shareKakao">카카오톡</button>
+          <button id="shareTwitter">X(트위터)</button>
+          <button id="shareCopy">📋 복사</button>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ============ SECTION: HOW TO USE (Content for AdSense) ============ -->
+    <section id="section-howto" class="hidden">
+      <div class="card">
+        <h2 data-i18n="howto_h2">이 도구 활용법</h2>
+        <p class="muted" data-i18n="howto_intro">
+          이 페이지는 글쓰기 속도를 가로막는 자기 검열을 줄이고 집중력을 높이는 작은 훈련장입니다. 아래 가이드를 참고해 자신에게 맞는 규칙을 세워보세요.
+        </p>
+        <div class="hr"></div>
+        <div class="list">
+          <div class="item">
+            <h4 data-i18n="howto_1_title">1) 목표 정하기</h4>
+            <p data-i18n="howto_1_body">
+              단거리(Sprint)는 ‘중단 금지’에 집중, 마라톤(Marathon)은 ‘총 글자수’를 목표로 합니다. 아이디어 모드는 자유롭게 브레인스토밍하세요.
+            </p>
+          </div>
+          <div class="item">
+            <h4 data-i18n="howto_2_title">2) 환경 세팅</h4>
+            <p data-i18n="howto_2_body">
+              방해 요소(휴대폰 알림, 메신저)를 끄고, 타이머 시간을 정합니다. 초반엔 5~10분, 이후 20~30분으로 늘려보세요.
+            </p>
+          </div>
+          <div class="item">
+            <h4 data-i18n="howto_3_title">3) 규칙 적용</h4>
+            <p data-i18n="howto_3_body">
+              Sprint는 5초 이상 멈추면 실패, Marathon은 시간 내 목표 글자수 미달 시 실패, Idea는 1분 무입력 시 실패입니다.
+            </p>
+          </div>
+          <div class="item">
+            <h4 data-i18n="howto_4_title">4) 기록 & 회고</h4>
+            <p data-i18n="howto_4_body">
+              성공/실패 이유를 간단히 적어 두면 다음 세션의 품질이 올라갑니다. 자신의 최적 시간대를 찾아보세요.
+            </p>
+          </div>
+        </div>
+      </div>
+
+ 
+    </section>
+
+    <!-- ============ SECTION: WRITING GUIDES (Book recs) ============ -->
+    <section id="section-guides" class="hidden">
+      <div class="card">
+        <h2 data-i18n="guides_h2">글쓰기 가이드 & 추천 작법서</h2>
+        <p class="muted" data-i18n="guides_intro">
+          아래 목록은 스토리 구조를 빠르게 잡는 데 도움이 되는 대표 참고서들입니다.
+        </p>
+        <div class="hr"></div>
+        <div class="list">
+          <div class="item">
+            <h4><em>Save the Cat! 나의 첫 소설 쓰기</em> — 제시카 브로디</h4>
+            <p data-i18n="btc_stc_novel">
+              아이디어를 소설로 빚어내기 위한 15가지 원칙을 배울 수 있습니다.
+            </p>
+          </div>
+          <div class="item">
+            <h4><em>Save the Cat!</em> — 블레이크 스니더</h4>
+            <p data-i18n="btc_stc_screen">
+              시나리오 원전. 시나리오 불변의 법칙들을 점검하세요.
+            </p>
+          </div>
+          <div class="item">
+            <h4><em>스토리: 시나리오 어떻게 쓸 것인가</em> — 로버트 맥키</h4>
+            <p data-i18n="btc_mckee">
+              할리우드가 인정한 시나리오 작법의 대가인 로버트 맥키가 쓴 책으로 현재까지 시나리오 작법의 정석으로 인정받는 책이다.
+            </p>
+          </div>
+          <div class="item">
+          </div>
+        </div>
+      </div>
+
+
+</section> <!-- end of section-guides -->
+
+<!-- SECTION: AD SLOT -->
+<section id="section-ads" class="hidden"></section>
+
+
+<!-- ============ SECTION: PRIVACY (Inline) ============ -->
+<section id="section-privacy" class="hidden">
+  <div class="card">
+    <h2 data-i18n="privacy_h2">개인정보 처리방침</h2>
+    <div class="hr"></div>
+    <div class="list">
+      <div class="item">
+        <h4 data-i18n="privacy_what_title">수집하는 항목</h4>
+        <p data-i18n="privacy_what_body">
+          본 앱은 기본적으로 사용자의 입력 내용을 로컬에서만 처리하며, 서버로 전송하지 않습니다.
+          제3자 스크립트(예: 광고, 분석)를 도입할 경우 해당 스크립트가 수집하는 항목과 목적을 명시합니다.
+        </p>
+      </div>
+      <div class="item">
+        <h4 data-i18n="privacy_purpose_title">이용 목적</h4>
+        <p data-i18n="privacy_purpose_body">
+          글쓰기 훈련 제공, 오류 분석 및 품질 개선(선택적)
+        </p>
+      </div>
+      <div class="item">
+        <h4 data-i18n="privacy_third_title">제3자 제공/처리</h4>
+        <p data-i18n="privacy_third_body">
+          현재 본 서비스는 사용자의 작성 내용을 서버로 전송하지 않으며,
+    <b>제3자에게 개인정보를 제공하거나 외부 위탁 처리를 수행하지 않습니다.</b><br>
+    추후 외부 서비스를 도입할 경우, 제공(또는 수집) 항목, 처리 목적, 보관 기간, 제공(또는 보관) 위치(국외 포함)를 사전 업데이트하여 고지하겠습니다.
+        </p>
+      </div>
+      <div class="item">
+        <h4 data-i18n="privacy_retention_title">보관 및 파기</h4>
+        <p data-i18n="privacy_retention_body">
+          본 사이트는 아직 회원가입, 로그인, 서버 전송 기능이 없으며, 별도로 수집·보관되는 개인정보는 없습니다.
+    사용자의 작성 내용은 <b>브라우저 로컬 저장소(localStorage)</b>에만 일시적으로 보관됩니다. 페이지 새로고침 또는 브라우저 캐시 삭제 시 해당 데이터는 자동으로 삭제됩니다. 
+        </p>
       </div>
     </div>
-
-    <!-- 결과 화면 -->
-    <div class="card hidden" id="resultCard">
-      <h3 id="resultHeadline">결과</h3>
-      <p id="resultDetail" class="center"></p>
-      <div class="center" style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:8px">
-        <button id="restart">다시 시작</button>
-      </div>
-      <div class="share-buttons">
-        <button id="shareKakao">카카오톡</button>
-        <button id="shareTwitter">X(트위터)</button>
-        <button id="shareCopy">📋 복사</button>
-      </div>
-    </div>
-
   </div>
+</section>
+
+<!-- ============ SECTION: TERMS (Inline) ============ -->
+<section id="section-terms" class="hidden">
+  <div class="card">
+    <h2 data-i18n="terms_h2">이용약관</h2>
+    <div class="hr"></div>
+    <div class="list">
+      <div class="item">
+        <h4 data-i18n="terms_use_title">서비스 이용</h4>
+        <p data-i18n="terms_use_body">
+          본 앱은 개인 창작 훈련용 도구입니다. 불법·유해한 용도로의 사용을 금지합니다.
+        </p>
+      </div>
+      <div class="item">
+        <h4 data-i18n="terms_account_title">계정/데이터</h4>
+        <p data-i18n="terms_account_body">
+          서버 저장 기능이 없는 정적 앱입니다. 작성 내용은 브라우저(로컬)에만 존재하므로,
+          브라우저/기기 교체·캐시 삭제 전에 백업을 권장합니다.
+        </p>
+      </div>
+      <div class="item">
+        <h4 data-i18n="terms_liability_title">면책</h4>
+        <p data-i18n="terms_liability_body">
+          서비스는 있는 그대로 제공되며, 데이터 손실·중단 등으로 인한 손해에 대해 책임을 지지 않습니다.
+        </p>
+      </div>
+      <div class="item">
+        <h4 data-i18n="terms_change_title">약관 변경</h4>
+        <p data-i18n="terms_change_body">
+          중요 변경 시 사전 고지합니다. 변경일 이후 지속 이용 시 변경에 동의한 것으로 간주됩니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // ===== DOM =====
-      const modeCard = document.getElementById('modeCard');
-      const difficultyCard = document.getElementById('difficultyCard');
-      const sprintSetup = document.getElementById('sprintSetup');
-      const marathonSetup = document.getElementById('marathonSetup');
-      const ideaSetup = document.getElementById('ideaSetup');
-      const writingCard = document.getElementById('writingCard');
-      const resultCard = document.getElementById('resultCard');
+  // ---------- Simple Router (tabs) ----------
+ const sections = {
+  tool:    document.getElementById('section-tool'),
+  howto:   document.getElementById('section-howto'),
+  guides:  document.getElementById('section-guides'),
+  privacy: document.getElementById('section-privacy'),
+  terms:   document.getElementById('section-terms'),
+};
+const DRAFT_KEY = 'wtc:draft';
+const LANG_KEY  = 'wtc:lang'; // 이미 쓰고 있으면 중복 추가 X
+  const tabs = Array.from(document.querySelectorAll('.tab'));
+  function go(route){
+    Object.values(sections).forEach(s=>s.classList.add('hidden'));
+    sections[route]?.classList.remove('hidden');
+    tabs.forEach(t=>t.classList.toggle('active', t.dataset.route===route));
+    // keep hash for share
+    location.hash = route;
+  }
+  tabs.forEach(t=> t.addEventListener('click', ()=>go(t.dataset.route)));
+  window.addEventListener('load', ()=>{
+    const hash = location.hash.replace('#','');
+    go( (hash && sections[hash]) ? hash : 'tool' );
+  });
+// 해시가 바뀌면 해당 섹션 보여주기 (푸터 링크 #privacy, #terms 대응)
+window.addEventListener('hashchange', ()=>{
+  const hash = location.hash.replace('#','');
+  if (sections[hash]) go(hash);
+});
 
-      const btnSprint = document.getElementById('btnSprint');
-      const btnMarathon = document.getElementById('btnMarathon');
-      const btnIdea = document.getElementById('btnIdea');
+  // ---------- i18n (KR/EN toggle) ----------
+  const dict = {
+    ko: {
+      title:'글쓰기 루틴 챌린지',
+      subtitle:'단거리 / 마라톤 / 아이디어 · Hard/Soft 모드 · 결과 공유',
+      tab_tool:'Tool', tab_howto:'How to Use', tab_guides:'Writing Guides',
+      mode_title:'모드 선택',
+      mode_sprint_btn:'단거리 모드',
+      mode_sprint_desc:'· 3/5/10/20/30분 · <b>5초</b> 멈추면 실패',
+      mode_marathon_btn:'마라톤 모드',
+      mode_marathon_desc:'· 목표 글자수 + 40/60/90/120분 · 미달 시 실패',
+      mode_idea_btn:'아이디어 모드',
+      mode_idea_desc:'· 10/20/30분 · <b>1분</b> 무입력 시 실패',
+      difficulty_title:'난이도 선택',
+      difficulty_hard:'Hard', difficulty_hard_desc:'실패 시 원고 삭제',
+      difficulty_soft:'Soft', difficulty_soft_desc:'실패해도 원고 보존 (메시지만 표시)',
+      sprint_title:'단거리 설정',
+      label_session_time:'세션 시간',
+      min_3:'3분', min_5:'5분', min_10:'10분', min_20:'20분', min_30:'30분',
+      min_40:'40분', hr_1:'1시간', hr_1_5:'1시간 30분', hr_2:'2시간',
+      btn_start:'시작', btn_back:'뒤로',
+      sprint_rule:'타이핑이 <b>5초 이상</b> 멈추면 즉시 실패.',
+      marathon_title:'마라톤 설정',
+      label_target_chars:'목표 글자수',
+      marathon_rule:'<b>시간 내 목표 글자수 미달</b> 시 실패 처리.',
+      idea_title:'아이디어 모드 설정',
+      idea_rule:'규칙: <b>1분 이상</b> 키 입력이 없으면 즉시 실패. (글자수 목표 없음)',
+      session_running:'세션 진행중',
+      label_time_left:'남은 시간',
+      label_char_count:'현재 글자수',
+      label_goal_chars:'목표 글자수',
+      placeholder_editor:'여기에 원고/아이디어를 작성하세요...',
+      status_waiting:'입력 대기 중…',
+      btn_giveup:'포기(즉시 종료)',
+      btn_restart:'다시 시작',
 
-      const btnHard = document.getElementById('btnHard');
-      const btnSoft = document.getElementById('btnSoft');
+      howto_h2:'이 도구 활용법',
+      howto_intro:'이 페이지는 글쓰기 속도를 가로막는 자기 검열을 줄이고 집중력을 높이는 작은 훈련장입니다. 아래 가이드를 참고해 자신에게 맞는 규칙을 세워보세요.',
+      howto_1_title:'1) 목표 정하기',
+      howto_1_body:'단거리(Sprint)는 ‘중단 금지’에 집중, 마라톤(Marathon)은 ‘총 글자수’를 목표로 합니다. 아이디어 모드는 자유롭게 브레인스토밍하세요.',
+      howto_2_title:'2) 환경 세팅',
+      howto_2_body:'방해 요소(휴대폰 알림, 메신저)를 끄고, 타이머 시간을 정합니다. 초반엔 5~10분, 이후 20~30분으로 늘려보세요.',
+      howto_3_title:'3) 규칙 적용',
+      howto_3_body:'Sprint는 5초 이상 멈추면 실패, Marathon은 시간 내 목표 글자수 미달 시 실패, Idea는 1분 무입력 시 실패입니다.',
+      howto_4_title:'4) 기록 & 회고',
+      howto_4_body:'성공/실패 이유를 간단히 적어 두면 다음 세션의 품질이 올라갑니다. 자신의 최적 시간대를 찾아보세요.',
+      howto_adsense_title:'AdSense 승인 팁(간단 체크리스트)',
+      adsense_content_title:'콘텐츠 충분성',
+      adsense_content_body:'이 ‘활용법’과 ‘가이드’처럼 실질적 설명 문서를 최소 2~3개 이상 준비하세요. 중복/빈약 콘텐츠는 피하세요.',
+      adsense_policy_title:'정책/법적 고지',
+      adsense_policy_body:'하단에 개인정보 처리방침, 이용약관, 문의 링크를 마련합니다. 수집하는 정보가 있다면 명확히 고지하세요.',
+      adsense_speed_title:'접속성/속도',
+      adsense_speed_body:'모바일에서 잘 보이고, 느린 요소를 줄이면 심사/운영이 안정적입니다.',
 
-      const backFromSprint = document.getElementById('backFromSprint');
-      const backFromMarathon = document.getElementById('backFromMarathon');
-      const backFromIdea = document.getElementById('backFromIdea');
+      guides_h2:'글쓰기 가이드 & 추천 작법서',
+      guides_intro:'아래 목록은 스토리 구조를 빠르게 잡는 데 도움이 되는 대표 참고서들입니다.',
+      guides_apply_title:'도구와 함께 쓰는 방법',
+      apply_sprint:'Sprint(단거리)', apply_sprint_body:'한 비트/장면만 선택해 5~10분 동안 끊김 없이 첫 문장~마지막 문장까지 밀어붙입니다. 수정은 금지, 흐름만 확보!',
+      apply_marathon:'Marathon(마라톤)', apply_marathon_body:'미드포인트·클라이맥스 등 큰 비트 초안에 좋습니다. 목표 글자수와 남은 시간을 보며 페이스를 조절하세요.',
+      apply_idea:'Idea(아이디어)', apply_idea_body:'로그라인/캐릭터 결핍/테마 문장을 메모로 뽑아내는 시간. 1분 이상 멈추지 않도록 키워드만이라도 계속 적습니다.',
 
-      const startSprintBtn = document.getElementById('startSprint');
-      const startMarathonBtn = document.getElementById('startMarathon');
-      const startIdeaBtn = document.getElementById('startIdea');
+      footer_privacy:'개인정보 처리방침', footer_terms:'이용약관', footer_contact:'문의:0001mynew@Naver.com',
+      footer_note:'본 사이트는 교육/창작 훈련을 위한 정적 웹 앱입니다. 폰트는 Google Fonts(OFL) 사용.'
+    },
+    en: {
+      title:'Writing Training Challenge',
+      subtitle:'Sprint / Marathon / Idea · Hard/Soft Modes · Share Results',
+      tab_tool:'Tool', tab_howto:'How to Use', tab_guides:'Writing Guides',
+      mode_title:'Choose Mode',
+      mode_sprint_btn:'Sprint',
+      mode_sprint_desc:'· 3/5/10/20/30 min · fail if idle for <b>5s</b>',
+      mode_marathon_btn:'Marathon',
+      mode_marathon_desc:'· Target chars + 40/60/90/120 min · fail if under target',
+      mode_idea_btn:'Idea Mode',
+      mode_idea_desc:'· 10/20/30 min · fail if no input for <b>1m</b>',
+      difficulty_title:'Select Difficulty',
+      difficulty_hard:'Hard', difficulty_hard_desc:'On fail, draft is deleted',
+      difficulty_soft:'Soft', difficulty_soft_desc:'On fail, draft is kept (message only)',
+      sprint_title:'Sprint Settings',
+      label_session_time:'Session Time',
+      min_3:'3 min', min_5:'5 min', min_10:'10 min', min_20:'20 min', min_30:'30 min',
+      min_40:'40 min', hr_1:'1 hour', hr_1_5:'1h 30m', hr_2:'2 hours',
+      btn_start:'Start', btn_back:'Back',
+      sprint_rule:'If typing stops for <b>5 seconds</b>, instant fail.',
+      marathon_title:'Marathon Settings',
+      label_target_chars:'Target Characters',
+      marathon_rule:'Fail if target count not met within time.',
+      idea_title:'Idea Mode Settings',
+      idea_rule:'Rule: if no input for <b>1 minute</b>, instant fail. (No char target)',
+      session_running:'Session Running',
+      label_time_left:'Time Left',
+      label_char_count:'Current Characters',
+      label_goal_chars:'Target Characters',
+      placeholder_editor:'Write your draft/ideas here...',
+      status_waiting:'Waiting for input…',
+      btn_giveup:'Give Up (End Now)',
+      btn_restart:'Restart',
 
-      const sprintDurationSel = document.getElementById('sprintDuration');
-      const marathonDurationSel = document.getElementById('marathonDuration');
-      const targetCharsInput = document.getElementById('targetChars');
-      const ideaDurationSel = document.getElementById('ideaDuration');
+      howto_h2:'How to Use This Tool',
+      howto_intro:'This tool helps you conquer self-censorship—the main barrier to writing speed—to improve focus and establish a consistent routine. Refer to the guide below to set your own rules.',
+      howto_1_title:'1) Define Goals',
+      howto_1_body:'Sprint focuses on “no stopping”; Marathon targets total characters; Idea mode is free brainstorming.',
+      howto_2_title:'2) Prep Your Environment',
+      howto_2_body:'Silence distractions and pick a timer. Start with 5–10 minutes and scale to 20–30.',
+      howto_3_title:'3) Apply Rules',
+      howto_3_body:'Sprint fails after 5s idle; Marathon fails if under target; Idea fails after 1m idle.',
+      howto_4_title:'4) Log & Retrospect',
+      howto_4_body:'Note why you passed/failed. You’ll discover your best time-of-day and cadence.',
+      howto_adsense_title:'AdSense Approval Tips (Quick Checklist)',
+      adsense_content_title:'Content Sufficiency',
+      adsense_content_body:'Publish at least 2–3 practical articles (like this guide) beyond the tool itself.',
+      adsense_policy_title:'Policies/Legal',
+      adsense_policy_body:'Provide Privacy Policy, Terms, and Contact links in the footer. Disclose any data collection.',
+      adsense_speed_title:'Accessibility/Speed',
+      adsense_speed_body:'Ensure mobile responsiveness and avoid slow bloat for smoother review & runtime.',
 
-      const sessionTitle = document.getElementById('sessionTitle');
-      const timeLeftEl = document.getElementById('timeLeft');
-      const charCountEl = document.getElementById('charCount');
-      const goalBox = document.getElementById('goalBox');
-      const goalCharsEl = document.getElementById('goalChars');
+     
+      footer_privacy:'Privacy Policy', footer_terms:'Terms of Use', footer_contact:'Contact',
+      footer_note:'This is a static web app for education/creative practice. Fonts via Google Fonts (OFL).'
+    }
+  };
+  let currentLang = 'ko';
 
-      const progressWrap = document.getElementById('progressWrap');
-      const progressBar = document.getElementById('progressBar');
-      const progressLabel = document.getElementById('progressLabel');
-      const paceHint = document.getElementById('paceHint');
+  const langToggle = document.getElementById('langToggle');
+  function applyI18n(){
+    document.documentElement.lang = currentLang === 'ko' ? 'ko' : 'en';
+    const map = dict[currentLang];
+    document.querySelectorAll('[data-i18n]').forEach(node=>{
+      const key = node.getAttribute('data-i18n');
+      if(map[key]!==undefined) node.innerHTML = map[key];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(node=>{
+      const key = node.getAttribute('data-i18n-placeholder');
+      if(map[key]!==undefined) node.setAttribute('placeholder', map[key]);
+    });
+  }
+  langToggle.addEventListener('click', ()=>{
+    currentLang = (currentLang==='ko') ? 'en' : 'ko';
+    applyI18n();
+  });
+  applyI18n();
 
-      const editor = document.getElementById('editor');
-      const statusLine = document.getElementById('statusLine');
-      const giveUpBtn = document.getElementById('giveUp');
+  // ---------- Original App Logic ----------
+  document.addEventListener('DOMContentLoaded', () => {
+    const modeCard = document.getElementById('modeCard');
+    const difficultyCard = document.getElementById('difficultyCard');
+    const sprintSetup = document.getElementById('sprintSetup');
+    const marathonSetup = document.getElementById('marathonSetup');
+    const ideaSetup = document.getElementById('ideaSetup');
+    const writingCard = document.getElementById('writingCard');
+    const resultCard = document.getElementById('resultCard');
 
-      const resultHeadline = document.getElementById('resultHeadline');
-      const resultDetail = document.getElementById('resultDetail');
-      const restartBtn = document.getElementById('restart');
+    const btnSprint = document.getElementById('btnSprint');
+    const btnMarathon = document.getElementById('btnMarathon');
+    const btnIdea = document.getElementById('btnIdea');
 
-      const shareTwitter = document.getElementById('shareTwitter');
-      const shareKakao = document.getElementById('shareKakao');
-      const shareCopy = document.getElementById('shareCopy');
+    const btnHard = document.getElementById('btnHard');
+    const btnSoft = document.getElementById('btnSoft');
 
-      // ===== 상태 =====
-      let mode = null;          // 'sprint' | 'marathon' | 'idea'
-      let difficulty = null;    // 'hard' | 'soft'
-      let totalSeconds = 0;
-      let remain = 0;
-      let timerId = null;
-      let idleTimeoutId = null;
-      const IDEA_IDLE_LIMIT = 60; // 아이디어: 1분 무입력 실패
-      const SPRINT_IDLE_LIMIT = 5; // ▼ 스프린트: 5초 무입력 실패 (변경)
+    const backFromSprint = document.getElementById('backFromSprint');
+    const backFromMarathon = document.getElementById('backFromMarathon');
+    const backFromIdea = document.getElementById('backFromIdea');
 
-      // ▼ 추가: 포커스/가드 상태
-      let isPaused = false;
-      let sessionEnded = false;   // 성공/실패 등 최종 종료 여부
+    const startSprintBtn = document.getElementById('startSprint');
+    const startMarathonBtn = document.getElementById('startMarathon');
+    const startIdeaBtn = document.getElementById('startIdea');
 
-      // ===== 유틸 =====
-      const fmt = s => { const m=Math.floor(s/60), sec=s%60; return `${m}:${sec<10?'0'+sec:sec}`; };
-      const show = el => el.classList.remove('hidden');
-      const hide = el => el.classList.add('hidden');
+    const sprintDurationSel = document.getElementById('sprintDuration');
+    const marathonDurationSel = document.getElementById('marathonDuration');
+    const targetCharsInput = document.getElementById('targetChars');
+    const ideaDurationSel = document.getElementById('ideaDuration');
 
-      function resetToHome(){
-        clearInterval(timerId); timerId = null;
-        clearTimeout(idleTimeoutId); idleTimeoutId = null;
+    const sessionTitle = document.getElementById('sessionTitle');
+    const timeLeftEl = document.getElementById('timeLeft');
+    const charCountEl = document.getElementById('charCount');
+    const goalBox = document.getElementById('goalBox');
+    const goalCharsEl = document.getElementById('goalChars');
 
-        editor.disabled = false;
-        editor.value = ''; editor.oninput = null; editor.onkeydown = null;
-        editor.removeAttribute('data-target');
+    const progressWrap = document.getElementById('progressWrap');
+    const progressBar = document.getElementById('progressBar');
+    const progressLabel = document.getElementById('progressLabel');
+    const paceHint = document.getElementById('paceHint');
 
-        timeLeftEl.textContent = '--:--';
-        charCountEl.textContent = '0';
-        goalCharsEl.textContent = '0';
-        statusLine.textContent = '입력 대기 중…'; statusLine.className = 'center muted';
-        progressBar.style.width = '0%'; progressLabel.textContent = '진행: 0 / 0 (0%)'; paceHint.textContent = '';
+    const editor = document.getElementById('editor');
+    const statusLine = document.getElementById('statusLine');
+    const giveUpBtn = document.getElementById('giveUp');
 
-        hide(writingCard); hide(resultCard); hide(sprintSetup); hide(marathonSetup); hide(ideaSetup); hide(difficultyCard);
-        show(modeCard);
+    const resultHeadline = document.getElementById('resultHeadline');
+    const resultDetail = document.getElementById('resultDetail');
+    const restartBtn = document.getElementById('restart');
 
-        mode = null; difficulty = null; totalSeconds = 0; remain = 0;
+    const shareTwitter = document.getElementById('shareTwitter');
+    const shareKakao = document.getElementById('shareKakao');
+    const shareCopy = document.getElementById('shareCopy');
 
-        // ▼ 상태 초기화
-        isPaused = false;
-        sessionEnded = false;
+    let mode = null;          // 'sprint' | 'marathon' | 'idea'
+    let difficulty = null;    // 'hard' | 'soft'
+    let totalSeconds = 0;
+    let remain = 0;
+    let timerId = null;
+    let idleTimeoutId = null;
+    const IDEA_IDLE_LIMIT = 60;
+    const SPRINT_IDLE_LIMIT = 5;
+
+    const fmt = s => { const m=Math.floor(s/60), sec=s%60; return `${m}:${sec<10?'0'+sec:sec}`; };
+    const show = el => el.classList.remove('hidden');
+    const hide = el => el.classList.add('hidden');
+
+    function resetToHome(){
+      clearInterval(timerId); timerId = null;
+      clearTimeout(idleTimeoutId); idleTimeoutId = null;
+
+      editor.disabled = false;
+      editor.value = ''; editor.oninput = null; editor.onkeydown = null;
+      editor.removeAttribute('data-target');
+
+      timeLeftEl.textContent = '--:--';
+      charCountEl.textContent = '0';
+      goalCharsEl.textContent = '0';
+      statusLine.textContent = (currentLang==='ko' ? '입력 대기 중…' : 'Waiting for input…'); statusLine.className = 'center muted';
+      progressBar.style.width = '0%'; progressLabel.textContent = '진행: 0 / 0 (0%)'; paceHint.textContent = '';
+
+      hide(writingCard); hide(resultCard); hide(sprintSetup); hide(marathonSetup); hide(ideaSetup); hide(difficultyCard);
+      show(modeCard);
+
+      mode = null; difficulty = null; totalSeconds = 0; remain = 0;
+    }
+
+    // Navigation inside tool
+    btnSprint.onclick = () => { mode = 'sprint'; hide(modeCard); show(difficultyCard); };
+    btnMarathon.onclick = () => { mode = 'marathon'; hide(modeCard); show(difficultyCard); };
+    btnIdea.onclick = () => { mode = 'idea'; hide(modeCard); show(difficultyCard); };
+
+    btnHard.onclick = () => { difficulty = 'hard'; goSetup(); };
+    btnSoft.onclick = () => { difficulty = 'soft'; goSetup(); };
+
+    function goSetup(){
+      hide(difficultyCard);
+      if(mode==='sprint') show(sprintSetup);
+      else if(mode==='marathon') show(marathonSetup);
+      else if(mode==='idea') show(ideaSetup);
+    }
+
+    backFromSprint.onclick = () => { hide(sprintSetup); show(modeCard); mode=null; difficulty=null; };
+    backFromMarathon.onclick = () => { hide(marathonSetup); show(modeCard); mode=null; difficulty=null; };
+    backFromIdea.onclick = () => { hide(ideaSetup); show(modeCard); mode=null; difficulty=null; };
+
+    startSprintBtn.onclick = () => {
+      totalSeconds = parseInt(sprintDurationSel.value,10);
+      startSession();
+    };
+    startMarathonBtn.onclick = () => {
+      const target = parseInt(targetCharsInput.value,10);
+      if (isNaN(target) || target < 500){
+        alert(currentLang==='ko' ? '목표 글자수를 500자 이상으로 입력하세요.' : 'Enter a target of at least 500 characters.');
+        return;
+      }
+      totalSeconds = parseInt(marathonDurationSel.value,10);
+      startSession(target);
+    };
+    startIdeaBtn.onclick = () => {
+      totalSeconds = parseInt(ideaDurationSel.value,10);
+      startSession();
+    };
+
+    function startSession(targetChars=null){
+      hide(modeCard); hide(difficultyCard); hide(sprintSetup); hide(marathonSetup); hide(ideaSetup);
+      show(writingCard);
+
+      if(mode==='sprint'){
+        sessionTitle.textContent = (currentLang==='ko')
+          ? `단거리 진행중 (${fmt(totalSeconds)}) — 5초 멈추면 실패`
+          : `Sprint Running (${fmt(totalSeconds)}) — fail if 5s idle`;
+        hide(goalBox); hide(progressWrap);
+      }else if(mode==='marathon'){
+        sessionTitle.textContent = (currentLang==='ko')
+          ? `마라톤 진행중 (${fmt(totalSeconds)}) — 목표 글자수 달성 필수`
+          : `Marathon Running (${fmt(totalSeconds)}) — must hit target`;
+        goalCharsEl.textContent = String(targetChars);
+        show(goalBox); show(progressWrap);
+        editor.dataset.target = String(targetChars);
+      }else{
+        sessionTitle.textContent = (currentLang==='ko')
+          ? `아이디어 모드 진행중 (${fmt(totalSeconds)}) — 1분 무입력 시 실패`
+          : `Idea Mode (${fmt(totalSeconds)}) — fail if no input for 1m`;
+        hide(goalBox); hide(progressWrap);
       }
 
-      // ===== 네비게이션 =====
-      btnSprint.onclick = () => { mode = 'sprint'; hide(modeCard); show(difficultyCard); };
-      btnMarathon.onclick = () => { mode = 'marathon'; hide(modeCard); show(difficultyCard); };
-      btnIdea.onclick = () => { mode = 'idea'; hide(modeCard); show(difficultyCard); };
+      editor.disabled = false;
+      editor.value = '';
+      charCountEl.textContent = '0';
+      statusLine.textContent = (currentLang==='ko' ? '입력 대기 중…' : 'Waiting for input…');
+      statusLine.className = 'center muted';
 
-      btnHard.onclick = () => { difficulty = 'hard'; goSetup(); };
-      btnSoft.onclick = () => { difficulty = 'soft'; goSetup(); };
-
-      function goSetup(){
-        hide(difficultyCard);
-        if(mode==='sprint') show(sprintSetup);
-        else if(mode==='marathon') show(marathonSetup);
-        else if(mode==='idea') show(ideaSetup);
-      }
-
-      backFromSprint.onclick = () => { hide(sprintSetup); show(modeCard); mode=null; difficulty=null; };
-      backFromMarathon.onclick = () => { hide(marathonSetup); show(modeCard); mode=null; difficulty=null; };
-      backFromIdea.onclick = () => { hide(ideaSetup); show(modeCard); mode=null; difficulty=null; };
-
-      // ===== 시작 =====
-      startSprintBtn.onclick = () => {
-        totalSeconds = parseInt(sprintDurationSel.value,10);
-        startSession();
+      editor.oninput = () => {
+        charCountEl.textContent = String(editor.value.length);
+        if(mode==='sprint') resetIdle(SPRINT_IDLE_LIMIT);
+        if(mode==='idea')   resetIdle(IDEA_IDLE_LIMIT);
+        if(mode==='marathon') updateProgress();
       };
-      startMarathonBtn.onclick = () => {
-        const target = parseInt(targetCharsInput.value,10);
-        if (isNaN(target) || target < 500){ alert('목표 글자수를 500자 이상으로 입력하세요.'); return; }
-        totalSeconds = parseInt(marathonDurationSel.value,10);
-        startSession(target);
-      };
-      startIdeaBtn.onclick = () => {
-        totalSeconds = parseInt(ideaDurationSel.value,10);
-        startSession();
+      editor.onkeydown = () => {
+        if(mode==='sprint') resetIdle(SPRINT_IDLE_LIMIT);
+        if(mode==='idea')   resetIdle(IDEA_IDLE_LIMIT);
       };
 
-      function startSession(targetChars=null){
-        hide(modeCard); hide(difficultyCard); hide(sprintSetup); hide(marathonSetup); hide(ideaSetup);
-        show(writingCard);
+      remain = totalSeconds;
+      timeLeftEl.textContent = fmt(remain);
+      clearInterval(timerId); timerId = setInterval(tick,1000);
 
-        // ▼ 세션 가드 초기화
-        sessionEnded = false;
-        isPaused = false;
+      if(mode==='sprint')  resetIdle(SPRINT_IDLE_LIMIT);
+      if(mode==='idea')    resetIdle(IDEA_IDLE_LIMIT);
+      if(mode==='marathon') updateProgress();
 
+      editor.focus();
+    }
+
+    function tick(){
+      remain--;
+      timeLeftEl.textContent = fmt(remain);
+      if(mode==='marathon') updateProgress();
+
+      if(remain<=0){
+        clearInterval(timerId);
         if(mode==='sprint'){
-          sessionTitle.textContent = `스프린트 진행중 (${fmt(totalSeconds)}) — 5초 멈추면 실패`;
-          hide(goalBox); hide(progressWrap);
+          success( (currentLang==='ko')
+            ? `단거리 성공! ${fmt(totalSeconds)} 동안 멈추지 않았습니다.`
+            : `Sprint success! Kept typing for ${fmt(totalSeconds)}.` );
         }else if(mode==='marathon'){
-          sessionTitle.textContent = `마라톤 진행중 (${fmt(totalSeconds)}) — 목표 글자수 달성 필수`;
-          goalCharsEl.textContent = String(targetChars);
-          show(goalBox); show(progressWrap);
-          editor.dataset.target = String(targetChars);
+          const target = parseInt(editor.dataset.target || '0',10);
+          const len = editor.value.length;
+          if(len >= target){
+            success( (currentLang==='ko')
+              ? `마라톤 성공! ${fmt(totalSeconds)} 내에 ${len.toLocaleString()}자 작성 (목표 ${target.toLocaleString()}자).`
+              : `Marathon success! Wrote ${len.toLocaleString()} within ${fmt(totalSeconds)} (target ${target.toLocaleString()}).` );
+          }else{
+            fail( (currentLang==='ko')
+              ? `마라톤 실패! ${fmt(totalSeconds)} 내에 ${len.toLocaleString()}자 / 목표 ${target.toLocaleString()}자 미달.`
+              : `Marathon failed! ${len.toLocaleString()} / ${target.toLocaleString()} within ${fmt(totalSeconds)}.`, true);
+          }
         }else{
-          sessionTitle.textContent = `아이디어 모드 진행중 (${fmt(totalSeconds)}) — 1분 무입력 시 실패`;
-          hide(goalBox); hide(progressWrap);
+          success( (currentLang==='ko')
+            ? `아이디어 모드 성공! ${fmt(totalSeconds)} 동안 멈추지 않고 브레인스토밍 완료.`
+            : `Idea Mode success! Continuous brainstorming for ${fmt(totalSeconds)}.` );
         }
+      }
+    }
 
-        editor.disabled = false;
+    function updateProgress(){
+      const target = parseInt(editor.dataset.target || '0',10);
+      if(!target){ hide(progressWrap); return; }
+      const len = editor.value.length;
+      const pct = Math.max(0, Math.min(100, Math.round((len/target)*100)));
+      progressBar.style.width = pct + '%';
+      const label = (currentLang==='ko')
+        ? `진행: ${len.toLocaleString()} / ${target.toLocaleString()} (${pct}%)`
+        : `Progress: ${len.toLocaleString()} / ${target.toLocaleString()} (${pct}%)`;
+      progressLabel.textContent = label;
+      if(remain > 0){
+        const need = Math.max(0, target - len);
+        const needPerMin = Math.ceil(need / (remain/60));
+        paceHint.textContent = (currentLang==='ko')
+          ? `필요 속도: 분당 ${needPerMin.toLocaleString()}자`
+          : `Needed pace: ${needPerMin.toLocaleString()} chars/min`;
+      }else{
+        paceHint.textContent = '';
+      }
+    }
+
+    function resetIdle(seconds){
+      clearTimeout(idleTimeoutId);
+      const ruleText = (mode==='sprint')
+        ? (currentLang==='ko' ? '5초 이상 멈추면 실패' : 'Fail if 5s idle')
+        : (mode==='idea' ? (currentLang==='ko' ? '1분 무입력 시 실패' : 'Fail if no input for 1m') : '');
+      statusLine.textContent = (currentLang==='ko' ? '입력 중…' : 'Typing…') + (ruleText?` (${ruleText})`:'');
+      statusLine.className = 'center muted';
+      idleTimeoutId = setTimeout(()=>{
+        if(mode==='sprint'){
+          fail( (currentLang==='ko')
+            ? '단거리 실패! 5초 이상 타이핑이 멈췄습니다.'
+            : 'Sprint failed! Typing stopped for over 5s.', true);
+        }else if(mode==='idea'){
+          fail( (currentLang==='ko')
+            ? '아이디어 모드 실패! 1분 이상 입력이 없었습니다.'
+            : 'Idea mode failed! No input for over 1 minute.', true);
+        }
+      }, seconds*1000);
+    }
+
+    function success(msg){
+      stopTimersKeepEditor();
+      resultHeadline.textContent = (currentLang==='ko' ? '🎉 성공' : '🎉 Success');
+      resultHeadline.className = 'success center';
+      resultDetail.textContent = msg + (currentLang==='ko'
+        ? ' (원고는 아래 에디터에 그대로 보존됩니다)'
+        : ' (Your draft remains in the editor below)');
+      show(resultCard);
+    }
+
+    function fail(msg, wipe=false){
+      stopTimersKeepEditor();
+      if(difficulty==='hard' && wipe){
         editor.value = '';
         charCountEl.textContent = '0';
-        statusLine.textContent = '입력 대기 중…';
-        statusLine.className = 'center muted';
-
-        editor.oninput = () => {
-          charCountEl.textContent = String(editor.value.length);
-          if(mode==='sprint') resetIdle(SPRINT_IDLE_LIMIT);     // ▼ 5초로 동작
-          if(mode==='idea')   resetIdle(IDEA_IDLE_LIMIT);
-          if(mode==='marathon') updateProgress();
-        };
-        editor.onkeydown = () => {
-          if(mode==='sprint') resetIdle(SPRINT_IDLE_LIMIT);     // ▼ 5초로 동작
-          if(mode==='idea')   resetIdle(IDEA_IDLE_LIMIT);
-        };
-
-        remain = totalSeconds;
-        timeLeftEl.textContent = fmt(remain);
-        clearInterval(timerId); timerId = setInterval(tick,1000);
-
-        if(mode==='sprint')  resetIdle(SPRINT_IDLE_LIMIT);      // ▼ 5초로 동작
-        if(mode==='idea')    resetIdle(IDEA_IDLE_LIMIT);
-        if(mode==='marathon') updateProgress();
-
-        editor.focus();
+        resultDetail.textContent = msg + (currentLang==='ko'
+          ? ' (Hard 모드 — 원고가 삭제되었습니다)'
+          : ' (Hard mode — draft deleted)');
+      }else{
+        resultDetail.textContent = msg + (currentLang==='ko'
+          ? ' (Soft 모드 — 원고가 보존됩니다)'
+          : ' (Soft mode — draft kept)');
       }
+      resultHeadline.textContent = (currentLang==='ko' ? '⚠️ 실패' : '⚠️ Failed');
+      resultHeadline.className = 'fail center';
+      show(resultCard);
+    }
 
-      function tick(){
-        // ▼ 숨김/일시정지/포커스 이탈 중에는 진행 금지
-        if (sessionEnded || isPaused || document.hidden || !document.hasFocus()) return;
+    function stopTimersKeepEditor(){
+      clearInterval(timerId);
+      clearTimeout(idleTimeoutId);
+      timerId = null; idleTimeoutId = null;
+      editor.disabled = false;
+      show(writingCard);
+    }
 
-        remain--;
-        timeLeftEl.textContent = fmt(remain);
-        if(mode==='marathon') updateProgress();
-
-        if(remain<=0){
-          clearInterval(timerId);
-          // 종료 직전 혹시 남은 idle 타이머도 제거
-          clearTimeout(idleTimeoutId); idleTimeoutId=null;
-          if(mode==='sprint'){
-            success(`스프린트 성공! ${fmt(totalSeconds)} 동안 멈추지 않았습니다.`);
-          }else if(mode==='marathon'){
-            const target = parseInt(editor.dataset.target || '0',10);
-            const len = editor.value.length;
-            if(len >= target){
-              success(`마라톤 성공! ${fmt(totalSeconds)} 내에 ${len.toLocaleString()}자 작성 (목표 ${target.toLocaleString()}자).`);
-            }else{
-              fail(`마라톤 실패! ${fmt(totalSeconds)} 내에 ${len.toLocaleString()}자 / 목표 ${target.toLocaleString()}자 미달.`, true);
-            }
-          }else{
-            success(`아이디어 모드 성공! ${fmt(totalSeconds)} 동안 멈추지 않고 브레인스토밍 완료.`);
-          }
-        }
+    giveUpBtn.onclick = ()=>{
+      if(confirm(currentLang==='ko' ? '정말 포기하시겠어요?' : 'Really give up?')){
+        fail( (currentLang==='ko') ? '사용자 중단' : 'Stopped by user', true);
       }
+    };
+    restartBtn.onclick = resetToHome;
 
-      function updateProgress(){
-        const target = parseInt(editor.dataset.target || '0',10);
-        if(!target){ hide(progressWrap); return; }
-        const len = editor.value.length;
-        const pct = Math.max(0, Math.min(100, Math.round((len/target)*100)));
-        progressBar.style.width = pct + '%';
-        progressLabel.textContent = `진행: ${len.toLocaleString()} / ${target.toLocaleString()} (${pct}%)`;
-        if(remain > 0){
-          const need = Math.max(0, target - len);
-          const needPerMin = Math.ceil(need / (remain/60));
-          paceHint.textContent = `필요 속도: 분당 ${needPerMin.toLocaleString()}자`;
-        }else{
-          paceHint.textContent = '';
-        }
+    function getShareText(){
+      const baseUrl = (location.origin + location.pathname);
+      return `${resultDetail.innerText}\n${currentLang==='ko' ? '바로 해보기' : 'Try it now'}: ${baseUrl}`;
+    }
+    shareKakao.onclick = async ()=>{
+      const text = getShareText();
+      const shareData = { title:(currentLang==='ko'?'글쓰기 루틴 챌린지':'Writing Routine Challenge'), text, url: location.href };
+      if(navigator.share){
+        try{ await navigator.share(shareData); return; }catch(e){}
       }
-
-      function resetIdle(seconds){
-        clearTimeout(idleTimeoutId);
-        const ruleText = (mode==='sprint') ? '5초 이상 멈추면 실패' : (mode==='idea') ? '1분 무입력 시 실패' : '';
-        statusLine.textContent = `입력 중… (${ruleText})`;
-        statusLine.className = 'center muted';
-        idleTimeoutId = setTimeout(()=>{
-          // ▼ 세션이 끝났거나 시간 종료된 뒤 지연 타이머가 깨어나면 무시
-          if (sessionEnded || remain <= 0) return;
-          if (mode==='sprint'){
-            fail('스프린트 실패! 5초 이상 타이핑이 멈췄습니다.', true); // ▼ 메시지도 5초
-          }else if(mode==='idea'){
-            fail('아이디어 모드 실패! 1분 이상 입력이 없었습니다.', true);
-          }
-        }, seconds*1000);
+      try{ await navigator.clipboard.writeText(text);
+        alert(currentLang==='ko' ? '공유 텍스트가 복사됐어요! 카카오톡에 붙여넣기 하세요.' : 'Copied! Paste into your messenger.');
+      } catch(e){
+        alert(currentLang==='ko' ? '복사 실패. 수동 복사 부탁드려요.' : 'Copy failed. Please copy manually.');
       }
-
-      function success(msg){
-        // ▼ 중복/지연 성공 호출 방지
-        if (sessionEnded) return;
-        sessionEnded = true;
-
-        stopTimersKeepEditor();
-        resultHeadline.textContent = '🎉 성공';
-        resultHeadline.className = 'success center';
-        resultDetail.textContent = msg + ' (원고는 아래 에디터에 그대로 보존됩니다)';
-        show(resultCard);
+    };
+    shareTwitter.onclick = ()=>{
+      const t=encodeURIComponent(getShareText());
+      window.open(`https://twitter.com/intent/tweet?text=${t}`,'_blank');
+    };
+    shareCopy.onclick = async ()=>{
+      try{ await navigator.clipboard.writeText(getShareText());
+        alert(currentLang==='ko' ? '결과가 복사되었습니다!' : 'Result copied!');
+      }catch(e){
+        alert(currentLang==='ko' ? '복사 실패. 수동 복사 부탁드려요!' : 'Copy failed. Please copy manually!');
       }
+    };
+  });
 
-      function fail(msg, wipe=false){
-        // ▼ 중복/지연 실패 호출 방지
-        if (sessionEnded) return;
-        // ▼ 탭이 숨김이거나 포커스가 없을 때는 실패 처리 금지
-        if (document.hidden || !document.hasFocus()) return;
-
-        sessionEnded = true;
-
-        stopTimersKeepEditor();
-        if(difficulty==='hard' && wipe){
-          editor.value = '';
-          charCountEl.textContent = '0';
-          resultDetail.textContent = msg + ' (Hard 모드 — 원고가 삭제되었습니다)';
-        }else{
-          resultDetail.textContent = msg + ' (Soft 모드 — 원고가 보존됩니다)';
-        }
-        resultHeadline.textContent = '⚠️ 실패';
-        resultHeadline.className = 'fail center';
-        show(resultCard);
-      }
-
-      function stopTimersKeepEditor(){
-        clearInterval(timerId);
-        clearTimeout(idleTimeoutId);
-        timerId = null; idleTimeoutId = null;
-        editor.disabled = false;
-        show(writingCard);
-      }
-
-      giveUpBtn.onclick = ()=>{
-        if(confirm('정말 포기하시겠어요?')){
-          fail('사용자 중단', true);
-        }
-      };
-
-      restartBtn.onclick = resetToHome;
-
-      // 공유
-      function getShareText(){
-        const baseUrl = (location.origin + location.pathname);
-        return `${resultDetail.innerText}\n바로 해보기: ${baseUrl}`;
-      }
-      shareKakao.onclick = async ()=>{
-        const text = getShareText();
-        const shareData = { title:'소설가 전용 3초 입력기', text, url: location.href };
-        if(navigator.share){
-          try{ await navigator.share(shareData); return; }catch(e){}
-        }
-        try{ await navigator.clipboard.writeText(text); alert('공유 텍스트가 복사됐어요! 카카오톡에 붙여넣기 하세요.'); }
-        catch(e){ alert('복사 실패. 수동 복사 부탁드려요.'); }
-      };
-      shareTwitter.onclick = ()=>{ const t=encodeURIComponent(getShareText()); window.open(`https://twitter.com/intent/tweet?text=${t}`,'_blank'); };
-      shareCopy.onclick = async ()=>{ try{ await navigator.clipboard.writeText(getShareText()); alert('결과가 복사되었습니다!'); }catch(e){ alert('복사 실패. 수동 복사 부탁드려요!'); } };
-
-      // ▼ 일시정지/재개 로직
-      function pauseSession(reason='포커스 이탈'){
-        if (isPaused || sessionEnded) return;
-        isPaused = true;
-        clearInterval(timerId); timerId = null;
-        clearTimeout(idleTimeoutId); idleTimeoutId = null;
-        statusLine.textContent = `일시정지 (${reason}) — 창으로 돌아오면 자동 재개`;
-        statusLine.className = 'center muted';
-      }
-
-      function resumeSession(){
-        if (!isPaused || sessionEnded) return;
-        isPaused = false;
-        // 카운트다운 재개
-        timerId = setInterval(tick, 1000);
-        // 유휴감지 재개
-        if (mode==='sprint') resetIdle(SPRINT_IDLE_LIMIT);
-        if (mode==='idea')   resetIdle(IDEA_IDLE_LIMIT);
-        statusLine.textContent = '입력 중…';
-        statusLine.className = 'center muted';
-      }
-
-      // ▼ 탭/창 포커스에 따른 일시정지·재개 (글쓰기 화면에서만)
-      document.addEventListener('visibilitychange', ()=>{
-        if (sessionEnded || !writingCard || writingCard.classList.contains('hidden')) return;
-        if (document.hidden) pauseSession('탭 숨김');
-        else if (document.hasFocus()) resumeSession();
-      });
-
-      window.addEventListener('blur', ()=>{
-        if (sessionEnded) return;
-        if (!writingCard.classList.contains('hidden')) pauseSession('포커스 이탈');
-      });
-      window.addEventListener('focus', ()=>{
-        if (sessionEnded) return;
-        if (!writingCard.classList.contains('hidden') && !document.hidden) resumeSession();
-      });
-    });
+ 
   </script>
+
+  <!-- === (선택) 여기에 AdSense 스니펫을 삽입하세요 ===
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXX" crossorigin="anonymous"></script>
+  -->
+
+<!-- GLOBAL FOOTER -->
+<footer id="siteFooter">
+  <div class="links">
+    <a href="#privacy" data-i18n="footer_privacy">개인정보 처리방침</a>
+    <span class="sep">·</span>
+    <a href="#terms" data-i18n="footer_terms">이용약관</a>
+    <span class="sep">·</span>문의
+<span class="contact" data-i18n="footer_contact_label">:</span><span class="contact-email">0001mynew@naver.com</span>
+</div>
+  <p class="muted" style="margin-top:8px" data-i18n="footer_note">
+    본 사이트는 교육/창작 훈련을 위한 정적 웹 앱입니다. 폰트는 Google Fonts(OFL) 사용.
+  </p>
+</footer>
 </body>
 </html>
