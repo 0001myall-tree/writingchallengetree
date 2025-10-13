@@ -174,7 +174,7 @@
 </head>
 <body>
   <header>
-    <h1>소설가 전용 3초 입력기</h1>
+    <h1>글쓰기 루틴 챌린지 입력기</h1>
     <p>스프린트 / 마라톤 / 아이디어 · Hard/Soft 모드 · 결과 공유</p>
   </header>
 
@@ -637,7 +637,7 @@ saveDraft(); // ✅ Soft 실패(또는 hard이지만 wipe=false) 시 최종본 �
       }
       shareKakao.onclick = async ()=>{
         const text = getShareText();
-        const shareData = { title:'소설가 전용 3초 입력기', text, url: location.href };
+        const shareData = { title:'글쓰기 루틴 챌린지 입력기', text, url: location.href };
         if(navigator.share){
           try{ await navigator.share(shareData); return; }catch(e){}
         }
@@ -688,4 +688,5 @@ saveDraft(); // ✅ Soft 실패(또는 hard이지만 wipe=false) 시 최종본 �
   </script>
 </body>
 </html>
+
 
