@@ -7,7 +7,7 @@ interface HeroProps {
 export const Hero: React.FC<HeroProps> = ({ onStart }) => {
   return (
     <div className="max-w-5xl mx-auto">
-      {/* Intro Text Section */}
+      {/* 텍스트 섹션 */}
       <div className="text-center mb-16 relative">
         <div className="inline-block border border-orange-200 px-4 py-1 mb-6 rounded-full bg-orange-50/50">
           <span className="text-[11px] tracking-widest text-orange-600 font-bold uppercase">⚠️ 소설 창작 경험자 전용 진단</span>
@@ -20,7 +20,6 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         </h2>
 
         <div className="grid grid-cols-3 gap-6 md:gap-8 max-w-md mx-auto mb-12">
-          {/* 돌직구형 */}
           <div className="relative flex flex-col items-center">
             <div className="bg-indigo-50 border border-indigo-100 p-3 md:p-4 rounded-2xl shadow-sm mb-4 relative w-full">
               <span className="text-[11px] md:text-sm font-bold text-indigo-600 block mb-2">돌직구형?</span>
@@ -29,7 +28,6 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             </div>
           </div>
           
-          {/* 스위치형 */}
           <div className="relative flex flex-col items-center">
             <div className="bg-orange-50 border border-orange-100 p-3 md:p-4 rounded-2xl shadow-sm mb-4 relative w-full">
               <span className="text-[11px] md:text-sm font-bold text-orange-600 block mb-2">스위치형?</span>
@@ -38,7 +36,6 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             </div>
           </div>
 
-          {/* 현미경형 */}
           <div className="relative flex flex-col items-center">
             <div className="bg-emerald-50 border border-emerald-100 p-3 md:p-4 rounded-2xl shadow-sm mb-4 relative w-full">
               <span className="text-[11px] md:text-sm font-bold text-emerald-600 block mb-2">현미경형?</span>
@@ -59,11 +56,12 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           진단 시작하기
         </button>
 
-        {/* 펀딩 메인 히어로 섹션 */}
+        {/* 드디어 등장할 펀딩 이미지 섹션 */}
         <div className="relative mb-24 px-4 md:px-0">
-          <a href="여기에_작가님_펀딩_링크_주소" target="_blank" rel="noreferrer" className="block">
+          <a href="https://your-funding-link.com" target="_blank" rel="noreferrer" className="block">
             <div className="relative w-full overflow-hidden rounded-sm shadow-2xl transition-all duration-500 hover:shadow-orange-900/20">
-              <img src="/funding.png" 
+              <img 
+                src="/funding.png" 
                 alt="Funding Project" 
                 className="w-full h-auto object-contain"
               />
@@ -73,7 +71,6 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         </div>
       </div>
 
-      {/* Short secondary intro for credibility */}
       <div className="max-w-3xl mx-auto text-center pb-24 border-b border-orange-100">
         <p className="text-sm md:text-base text-gray-500 leading-loose">
           본 진단은 <strong>실전 창작 유형</strong>을 기반으로 설계되어,<br/>
