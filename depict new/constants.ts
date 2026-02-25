@@ -115,7 +115,7 @@ export const RESULTS: Record<WriterType, Result> = {
     id: 'LIGHT_SWITCH',
     name: '전등 스위치형',
     definition: "모 아니면 도 / 강도 0·100",
-    description: "당신은 묘사를 할 때 애매한 표현을 답답해하고, 확실한 표현을 선호하는 성향이 강한 타입입니다.\n\n이 성향이 묘사에 부정적으로 드러날 때는 인물의 감정이나 행동 강도가 항상 0 아니면 100으로 느껴지거나 인물의 움직임과 감정이 툭툭 끊겨 보일 수 있습니다.\n\n이 타입에게 필요한 건 표현을 줄이는 게 아니라 강도를 정밀하게 조절하는 기준입니다.",
+    description: "당신은 묘사를 할 때 애매한 표현을 답답해하고, 확실한 표현을 선호하는 성향이 강한 타입입니다.\n\n당신의 시원한 전달력은 분명 강점입니다. 하지만 인물의 감정이나 행동 강도가 항상 0 아니면 100으로 느껴지거나 인물의 움직임과 감정이 툭툭 끊겨 보일 수 있습니다.\n\n이 타입에게 필요한 건 강도를 정밀하게 조절하는 기준입니다.",
     chapterTitle: "CHAPTER 1 – 04. 묘사가 투박하거나 애니메이션처럼 느껴질 때",
     imagePrompt: "An artistic minimalist light switch on a textured wall, dramatic lighting, sharp contrast between deep shadow and warm orange light, cinematic style"
   },
