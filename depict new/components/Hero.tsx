@@ -67,7 +67,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
 
       {/* Single Large Hero Image Section with Blur Effect for teaser */}
       <div className="relative mb-24 px-4 md:px-0">
-        <div className="relative w-full h-[500px] md:h-[650px] overflow-hidden rounded-sm shadow-2xl group">
+        <div className="relative w-full h-[180px] md:h-[220px] overflow-hidden rounded-sm shadow-2xl group">
           <img 
             src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=1200" 
             alt="Writer's table with aesthetic light" 
@@ -75,37 +75,36 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
           
-          <div className="absolute bottom-12 left-10 md:left-16 text-white max-w-lg">
-            <p className="text-[11px] tracking-[0.4em] mb-4 font-bold uppercase opacity-80 underline underline-offset-8 decoration-orange-500">G-Kangs Publishing Lab</p>
-            <h3 className="serif-title text-4xl md:text-6xl italic font-bold leading-tight mb-4">
+          <div className="absolute bottom-6 left-10 md:left-16 text-white max-w-lg">
+            <p className="text-[11px] tracking-[0.4em] mb-2 font-bold uppercase opacity-80 underline underline-offset-8 decoration-orange-500">G-Kangs Publishing Lab</p>
+            <h3 className="serif-title text-2xl md:text-4xl italic font-bold leading-tight mb-2">
               문장 속에 담긴 <br/>당신의 마음
             </h3>
             <div className="w-12 h-[2px] bg-orange-500"></div>
           </div>
 
           {/* RFP 4-1. 결과 예시 블러 처리 노출 */}
-          <div className="absolute top-8 right-8 hidden md:block">
-            <div className="p-8 border border-white/20 backdrop-blur-xl bg-black/20 text-white rounded-sm w-64">
+          <div className="absolute top-4 right-8 hidden md:block scale-75 origin-top-right">
+            <div className="p-6 border border-white/20 backdrop-blur-xl bg-black/20 text-white rounded-sm w-64">
               <p className="text-[11px] tracking-widest mb-4 font-bold text-orange-400 uppercase">Diagnosis Sample</p>
               <div className="blur-result select-none opacity-50 space-y-2">
-                <h5 className="serif-title text-2xl italic font-bold">여백의 미니멀리스트</h5>
+                <h5 className="serif-title text-xl italic font-bold">여백의 미니멀리스트</h5>
                 <p className="text-[11px] leading-relaxed">단 한 마디로 백 마디를 대신하는...</p>
                 <div className="h-2 w-full bg-white/20 rounded"></div>
                 <div className="h-2 w-3/4 bg-white/20 rounded"></div>
               </div>
-              <p className="mt-6 text-[10px] text-white/40 italic text-center">정식 결과는 테스트 완료 후 공개됩니다</p>
             </div>
           </div>
         </div>
         
         {/* Decorative corner element */}
-        <div className="absolute -bottom-8 -right-4 md:-right-8 w-24 h-24 md:w-32 md:h-32 bg-[#fdfcf8] border border-orange-100 flex items-center justify-center rotate-3 shadow-lg z-20">
-            <span className="text-4xl text-orange-200">🖋️</span>
+        <div className="absolute -bottom-6 -right-2 md:-bottom-8 md:-right-8 w-16 h-16 md:w-24 md:h-24 bg-[#fdfcf8] border border-orange-100 flex items-center justify-center rotate-3 shadow-lg z-20">
+            <span className="text-2xl md:text-4xl text-orange-200">🖋️</span>
         </div>
       </div>
       
       {/* Short secondary intro for credibility */}
-      <div className="max-w-3xl mx-auto text-center pb-24 border-b border-orange-100"></div>
+      <div className="max-w-3xl mx-auto text-center pb-24 border-b border-orange-100">
         <p className="text-sm md:text-base text-gray-500 leading-loose">
           본 진단은 <strong>실전 창작 유형</strong>을 기반으로 설계되어,<br/>
           단순한 재미를 넘어 당신의 다음 집필을 위한 조언을 제공합니다.
