@@ -65,23 +65,20 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         </button>
       </div>
 
-      {/* Single Large Hero Image Section with Blur Effect for teaser */}
-      <div className="relative mb-24 px-4 md:px-0">
-        <div className="relative w-full h-[180px] md:h-[220px] overflow-hidden rounded-sm shadow-2xl group">
-          <img 
-            src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=1200" 
-            alt="Writer's table with aesthetic light" 
-            className="w-full h-full object-cover filter sepia-[0.1] transition-transform duration-1000 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-          
-          <div className="absolute bottom-6 left-10 md:left-16 text-white max-w-lg">
-            <p className="text-[11px] tracking-[0.4em] mb-2 font-bold uppercase opacity-80 underline underline-offset-8 decoration-orange-500">G-Kangs Publishing Lab</p>
-            <h3 className="serif-title text-2xl md:text-4xl italic font-bold leading-tight mb-2">
-              문장 속에 담긴 <br/>당신의 마음
-            </h3>
-            <div className="w-12 h-[2px] bg-orange-500"></div>
-          </div>
+     {/* 펀딩 메인 히어로 섹션 - 기존 이미지를 지우고 이 코드를 넣으세요 */}
+<div className="relative mb-24 px-4 md:px-0">
+  <a href="여기에_작가님_펀딩_링크_주소" target="_blank" rel="noreferrer" className="block">
+    <div className="relative w-full overflow-hidden rounded-sm shadow-2xl transition-all duration-500 hover:shadow-orange-900/20">
+      <img 
+        src="/funding.jpg"  /* 👈 public 폴더에 올린 이미지 이름으로 정확히 써주세요! */
+        alt="Funding Project" 
+        className="w-full h-auto object-contain"
+      />
+      {/* 이미지 위에 살짝 고급스러운 광택 효과만 줍니다 */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none"></div>
+    </div>
+  </a>
+</div>
 
 
           {/* RFP 4-1. 결과 예시 블러 처리 노출 */}
