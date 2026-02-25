@@ -105,8 +105,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
       </div>
       
       {/* Short secondary intro for credibility */}
-      <div className="max-w-3xl mx-auto text-center pb-24 border-b border-orange-100">
-        <h4 className="serif-title text-3xl mb-6 font-bold text-gray-800">"책을 사기 전, 자신의 문제를 먼저 아는 것이 중요합니다."</h4>
+      <div className="max-w-3xl mx-auto text-center pb-24 border-b border-orange-100"></div>
         <p className="text-sm md:text-base text-gray-500 leading-loose">
           본 진단은 <strong>실전 창작 유형</strong>을 기반으로 설계되어,<br/>
           단순한 재미를 넘어 당신의 다음 집필을 위한 조언을 제공합니다.
