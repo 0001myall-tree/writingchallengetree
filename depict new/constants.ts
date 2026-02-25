@@ -131,7 +131,7 @@ export const RESULTS: Record<WriterType, Result> = {
     id: 'TOO_MUCH_TALK',
     name: '투 머치 토크형',
     definition: "수려하지만 과다 혹은 벽돌 묘사",
-    description: "당신은 표현력이 좋고, 하고 싶은 말이 많은 타입입니다. 하지만 전부를 말하려다 보면 묘사가 길어지고 장면이 지루하게 느껴질 수 있습니다.\n\n이 타입에게 필요한 건 줄이는 기술이 아니라 남길 걸 고르는 기준입니다.",
+    description: "당신은 표현력이 좋고, 하고 싶은 말이 많은 타입입니다. 하지만 전부를 말하려다 보면 묘사가 길어지고 장면이 지루하게 느껴질 수 있습니다.\n\n이 타입에게 필요한 건 남길 걸 고르는 기준입니다.",
     chapterTitle: "CHAPTER 1 – 02: 지루한 벽돌 묘사",
     imagePrompt: "A massive, solid wall made of ancient bricks, some bricks are engraved with tiny illegible text, dramatic warm lighting, cinematic texture, symbolic of dense writing"
   },
