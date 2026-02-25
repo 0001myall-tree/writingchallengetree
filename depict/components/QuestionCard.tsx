@@ -13,11 +13,11 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({ question, currentInd
   const progress = ((currentIndex + 1) / total) * 100;
 
   return (
-    <div className="max-w-2xl mx-auto py-12 px-6">
+    <div className="max-w-2xl mx-auto py-8 md:py-12 px-4 md:px-6">
       {/* Progress Bar */}
-      <div className="mb-16">
+      <div className="mb-10 md:mb-16">
         <div className="flex justify-between items-end mb-4">
-            <span className="serif-title text-4xl italic text-orange-500 font-bold">질문. {currentIndex + 1}</span>
+            <span className="serif-title text-3xl md:text-4xl italic text-orange-500 font-bold">질문. {currentIndex + 1}</span>
             <span className="text-[10px] tracking-widest text-gray-400">{currentIndex + 1} / {total}</span>
         </div>
         <div className="w-full h-[1px] bg-gray-200 relative">
@@ -28,18 +28,18 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({ question, currentInd
         </div>
       </div>
 
-      <h3 className="serif-title text-2xl md:text-3xl mb-12 text-center leading-snug font-bold">
+      <h3 className="serif-title text-xl md:text-3xl mb-8 md:mb-12 text-center leading-snug font-bold">
         {question.text}
       </h3>
 
-      <div className="space-y-4">
+      <div className="space-y-3 md:space-y-4">
         {question.options.map((option, idx) => (
           <button
             key={idx}
             onClick={() => onSelect(option.type)}
-            className="w-full text-left p-6 md:p-8 bg-white border border-gray-100 hover:border-orange-300 hover:bg-orange-50/30 transition-all group rounded-sm shadow-sm"
+            className="w-full text-left p-5 md:p-8 bg-white border border-gray-100 hover:border-orange-300 hover:bg-orange-50/30 transition-all group rounded-sm shadow-sm"
           >
-            <div className="flex items-start gap-4">
+            <div className="flex items-start gap-3 md:gap-4">
                 <span className="text-[10px] text-orange-400 font-bold mt-1 opacity-50 group-hover:opacity-100">{idx + 1}</span>
                 <p className="text-sm md:text-base text-gray-700 group-hover:text-gray-900 leading-relaxed font-medium">
                     {option.text}
