@@ -63,8 +63,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         <div className="relative mb-24 px-4 md:px-0">
           <a href="여기에_작가님_펀딩_링크_주소" target="_blank" rel="noreferrer" className="block">
             <div className="relative w-full overflow-hidden rounded-sm shadow-2xl transition-all duration-500 hover:shadow-orange-900/20">
-              <img 
-                src="/funding.png" 
+              <img src="/funding.png" 
                 alt="Funding Project" 
                 className="w-full h-auto object-contain"
               />
