@@ -138,7 +138,7 @@ export const RESULTS: Record<WriterType, Result> = {
   STRAIGHT_BALL: {
     id: 'STRAIGHT_BALL',
     name: '돌직구 보고형',
-    definition: "직서술 / 감각 연결 부족",
+    definition: "급하니까 일단 결론부터!",
     description: "당신은 묘사보다 전개 효율을 우선하는 타입입니다. 불필요한 걸 싫어하고 빠르게 다음 장면으로 가고 싶어 합니다. 비유나 우회보다 “있는 그대로 쓰면 되지”라고 생각하는 경향이 있습니다.\n\n군더더기 없이 빠른 전개를 할 수 있는 게 장점이지만 묘사가 너무 짧거나 장면의 몰입감이 부족할 수 있습니다.",
     chapterTitle: "CHAPTER 1 – 01: 너무 짧은 묘사, CHAPTER 1 – 03: 감정 묘사에 오감을 어떻게 활용할까",
     imagePrompt: "A sharp orange arrow piercing directly through the center of a target, minimalist design, clean lines, high speed energy"
@@ -157,6 +157,6 @@ export const RESULTS: Record<WriterType, Result> = {
     definition: "감정 분석형",
     description: "당신은 감정을 분석해야 안심하는 습관이 있을 가능성이 높습니다. 감정의 정확도가 높은 대신 감정 앞에 설명이 나와서 몰입을 방해할 수 있습니다.\n\n이 타입에게 필요한 건, 독자를 느끼게 하는 글을 쓰는 것입니다.",
     chapterTitle: "CHAPTER 1 – 03: 감정 묘사에 오감을 어떻게 활용할까",
-    imagePrompt: "An elegant vintage microscope looking at a tiny crystalline heart, intellectual and deep atmosphere, orange and cream color palette"
+    imagePrompt: "A professional laboratory microscope, detailed lens and mechanical parts, focused on a slide, intellectual and scientific atmosphere, warm orange and cream tones, high quality photography"
   }
 };
