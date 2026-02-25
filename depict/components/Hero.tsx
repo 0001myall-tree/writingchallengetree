@@ -26,13 +26,13 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             <span className="text-[10px] tracking-widest text-orange-600 font-bold uppercase">⚠️ 소설 창작 경험자 전용 진단</span>
         </div>
 
-        <h2 className="serif-title text-5xl md:text-7xl mb-8 leading-[1.3] md:leading-[1.5] font-bold text-gray-800">
+        <h2 className="serif-title text-4xl md:text-7xl mb-8 leading-[1.3] md:leading-[1.5] font-bold text-gray-800">
           묘사 스타일로 <br/>
-          보는 <br/>
+          보는 <br className="md:hidden" />
           성향 테스트 🖋️
         </h2>
         
-        <p className="text-sm tracking-widest text-gray-500 mb-10 max-w-md mx-auto leading-relaxed">
+        <p className="text-xs md:text-sm tracking-widest text-gray-500 mb-10 max-w-md mx-auto leading-relaxed px-4">
           자신의 묘사 방식을 객관적으로 인지하고 계신가요?<br/>
           반복되는 집필의 막힘을 해결할 실마리,<br/>
           <span className="text-orange-500 font-bold">12개 문항</span>으로 당신의 창작 DNA를 분석합니다.
@@ -40,7 +40,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
 
         <button 
           onClick={onStart}
-          className="bg-[#e86a33] text-white px-14 py-6 text-sm font-bold tracking-widest hover:bg-[#d55a2a] transition-all transform hover:-translate-y-1 rounded-sm shadow-xl active:scale-95 mb-4"
+          className="bg-[#e86a33] text-white px-10 md:px-14 py-5 md:py-6 text-sm font-bold tracking-widest hover:bg-[#d55a2a] transition-all transform hover:-translate-y-1 rounded-sm shadow-xl active:scale-95 mb-4"
         >
           진단 시작하기
         </button>
