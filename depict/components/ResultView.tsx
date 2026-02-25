@@ -1,7 +1,8 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Result } from '../types';
 import { generateResultImage } from '../services/gemini';
+import * as htmlToImage from 'html-to-image';
 
 interface ResultViewProps {
   result: Result;
@@ -11,6 +12,7 @@ interface ResultViewProps {
 export const ResultView: React.FC<ResultViewProps> = ({ result, onReset }) => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [isLoadingImage, setIsLoadingImage] = useState(true);
+  const resultRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     async function fetchImage() {
@@ -22,14 +24,78 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, onReset }) => {
     fetchImage();
   }, [result]);
 
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: '집필 심리 테스트 결과',
+          text: `나의 집필 유형은 [${result.name}]입니다!`,
+          url: window.location.href,
+        });
+      } catch (error) {
+        console.error('Error sharing:', error);
+      }
+    } else {
+      // Fallback: Copy to clipboard
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        alert('링크가 클립보드에 복사되었습니다.');
+      } catch (error) {
+        console.error('Error copying to clipboard:', error);
+      }
+    }
+  };
+
+  const handleSaveImage = async () => {
+    if (resultRef.current === null) return;
+    
+    try {
+      const dataUrl = await htmlToImage.toPng(resultRef.current, {
+        cacheBust: true,
+        backgroundColor: '#fdfcf8',
+      });
+      const link = document.createElement('a');
+      link.download = `집필진단_${result.name}.png`;
+      link.href = dataUrl;
+      link.click();
+    } catch (error) {
+      console.error('Error saving image:', error);
+      alert('이미지 저장 중 오류가 발생했습니다.');
+    }
+  };
+
   // Split chapters by comma to create a "trajectory" list
   const chapters = result.chapterTitle.split(',').map(c => c.trim());
 
+  // Helper to format result name with line breaks
+  const formatResultName = (name: string) => {
+    if (name === '투 머치 토크형') {
+      return (
+        <>
+          투 머치<br />토크형
+        </>
+      );
+    }
+    
+    const words = name.split(' ');
+    if (words.length === 2) {
+      return (
+        <>
+          {words[0]}<br />{words[1]}
+        </>
+      );
+    }
+    
+    return name;
+  };
+
   return (
-    <div className="max-w-5xl mx-auto px-6 py-12 animate-in fade-in slide-in-from-bottom-10 duration-1000">
+    <div ref={resultRef} className="max-w-5xl mx-auto px-6 py-12 animate-in fade-in slide-in-from-bottom-10 duration-1000">
       <div className="text-center mb-16">
-        <p className="text-[10px] tracking-[0.4em] text-orange-500 mb-4 font-bold uppercase">진단 결과 보고서</p>
-        <h2 className="serif-title text-6xl md:text-8xl italic mb-4 font-bold text-gray-800">{result.name}</h2>
+        <p className="text-[11px] tracking-[0.4em] text-orange-500 mb-4 font-bold uppercase">진단 결과 보고서</p>
+        <h2 className="serif-title text-6xl md:text-8xl italic mb-4 font-bold text-gray-800 leading-tight">
+          {formatResultName(result.name)}
+        </h2>
         <p className="text-lg text-gray-500 serif-title italic">"{result.definition}"</p>
       </div>
 
@@ -39,7 +105,7 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, onReset }) => {
           {isLoadingImage ? (
             <div className="w-full h-[400px] md:h-[600px] bg-orange-50 flex flex-col items-center justify-center animate-pulse rounded-sm border border-orange-100">
                 <div className="w-12 h-12 border-4 border-orange-200 border-t-orange-500 rounded-full animate-spin mb-4"></div>
-                <p className="text-[10px] tracking-widest text-orange-400 font-bold">유형별 맞춤 이미지 생성 중...</p>
+                <p className="text-[11px] tracking-widest text-orange-400 font-bold">유형별 맞춤 이미지 생성 중...</p>
             </div>
           ) : (
             <div className="relative group">
@@ -49,8 +115,8 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, onReset }) => {
                     className="w-full h-[400px] md:h-[600px] object-cover rounded-sm border border-orange-100 shadow-2xl transition-transform duration-500"
                 />
                 <div className="absolute -bottom-4 -right-2 md:-bottom-6 md:-right-6 w-24 h-24 md:w-32 md:h-32 bg-white p-3 md:p-4 border border-orange-100 rotate-6 shadow-lg z-10">
-                     <p className="text-[7px] md:text-[8px] text-gray-400 tracking-tighter text-center mt-1 md:mt-2 italic font-bold">진단 코드: {result.id}</p>
-                     <div className="mt-2 md:mt-4 border-t border-dashed border-gray-200 pt-1 md:pt-2 text-center text-[8px] md:text-[10px] serif-title font-bold text-orange-500">글캉스 공식 인증인</div>
+                     <p className="text-[8px] md:text-[9px] text-gray-400 tracking-tighter text-center mt-1 md:mt-2 italic font-bold">진단 코드: {result.id}</p>
+                     <div className="mt-2 md:mt-4 border-t border-dashed border-gray-200 pt-1 md:pt-2 text-center text-[9px] md:text-[11px] serif-title font-bold text-orange-500">글캉스 공식 인증인</div>
                 </div>
             </div>
           )}
@@ -59,7 +125,7 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, onReset }) => {
         {/* Right: Integrated Description & Solution Trajectory */}
         <div className="py-4">
           <div className="bg-white p-8 md:p-12 rounded-sm border border-orange-100 shadow-sm mb-8">
-            <h4 className="text-[10px] tracking-widest text-orange-500 mb-8 flex items-center gap-2 font-bold uppercase">
+            <h4 className="text-[11px] tracking-widest text-orange-500 mb-8 flex items-center gap-2 font-bold uppercase">
                 <span className="w-10 h-[1px] bg-orange-200"></span> 성향 진단 및 분석
             </h4>
             <div className="text-sm md:text-base leading-[2] text-gray-700 font-medium whitespace-pre-line">
@@ -69,7 +135,7 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, onReset }) => {
 
           {/* Solution Section */}
           <div className="bg-orange-50/30 p-8 md:p-10 rounded-sm border border-orange-100 border-dashed">
-            <h4 className="text-[10px] tracking-widest text-orange-600 mb-8 flex items-center gap-2 font-bold uppercase">
+            <h4 className="text-[11px] tracking-widest text-orange-600 mb-8 flex items-center gap-2 font-bold uppercase">
                 <span className="w-10 h-[1px] bg-orange-300"></span> 책 [막힐 때 바로 찾는 묘사 처방전]에서 도움을 받을 수 있는 챕터
             </h4>
             
@@ -81,7 +147,7 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, onReset }) => {
                   <div className="absolute left-0 top-[6px] w-[15px] h-[15px] bg-white border-2 border-orange-400 rounded-full z-10 flex items-center justify-center">
                     <div className="w-1.5 h-1.5 bg-orange-500 rounded-full"></div>
                   </div>
-                  <p className="text-[10px] text-orange-400 font-bold mb-1 uppercase tracking-tighter">Step {index + 1}</p>
+                  <p className="text-[11px] text-orange-400 font-bold mb-1 uppercase tracking-tighter">Step {index + 1}</p>
                   <p className="text-sm md:text-base text-gray-800 font-bold leading-relaxed whitespace-pre-line">
                     {chapter}
                   </p>
@@ -90,7 +156,7 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, onReset }) => {
             </div>
             
             <div className="mt-10 pt-8 border-t border-orange-100">
-              <p className="text-xs text-gray-500 leading-relaxed italic">
+              <p className="text-sm text-gray-500 leading-relaxed italic">
                 위의 가이드는 〈웹소설 묘사 처방전〉 도서 내에서 {result.name} 작가님께 가장 권장하는 학습 경로입니다.
               </p>
             </div>
@@ -103,9 +169,9 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, onReset }) => {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-orange-500/10 rounded-full blur-[100px] pointer-events-none"></div>
         
         <div className="relative z-10">
-            <p className="text-[10px] tracking-[0.4em] text-orange-400 mb-8 font-bold uppercase">처방전 받으러 가기</p>
+            <p className="text-[11px] tracking-[0.4em] text-orange-400 mb-8 font-bold uppercase">처방전 받으러 가기</p>
             <h3 className="serif-title text-3xl md:text-4xl mb-10 font-bold leading-[1.8]">
-                지금 바로 텀블벅에서 <br/>
+                지금 바로 <br/>
                 나만의 처방전을 소장하세요
             </h3>
             
@@ -127,11 +193,17 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, onReset }) => {
             </div>
             
             <div className="mt-16 flex justify-center gap-8">
-                <button className="text-[10px] tracking-widest text-white/50 hover:text-white transition-colors flex items-center gap-2 font-bold group">
+                <button 
+                  onClick={handleShare}
+                  className="text-[11px] tracking-widest text-white/50 hover:text-white transition-colors flex items-center gap-2 font-bold group"
+                >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:text-orange-400 transition-colors"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
                     테스트 공유하기
                 </button>
-                <button className="text-[10px] tracking-widest text-white/50 hover:text-white transition-colors flex items-center gap-2 font-bold group">
+                <button 
+                  onClick={handleSaveImage}
+                  className="text-[11px] tracking-widest text-white/50 hover:text-white transition-colors flex items-center gap-2 font-bold group"
+                >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:text-orange-400 transition-colors"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                     진단 카드 저장
                 </button>
