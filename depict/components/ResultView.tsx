@@ -35,9 +35,9 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, onReset }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20 items-start">
         {/* Left: AI Generated Visual */}
-        <div className="relative sticky top-8">
+        <div className="relative md:sticky md:top-8 z-0">
           {isLoadingImage ? (
-            <div className="w-full h-[600px] bg-orange-50 flex flex-col items-center justify-center animate-pulse rounded-sm border border-orange-100">
+            <div className="w-full h-[400px] md:h-[600px] bg-orange-50 flex flex-col items-center justify-center animate-pulse rounded-sm border border-orange-100">
                 <div className="w-12 h-12 border-4 border-orange-200 border-t-orange-500 rounded-full animate-spin mb-4"></div>
                 <p className="text-[10px] tracking-widest text-orange-400 font-bold">유형별 맞춤 이미지 생성 중...</p>
             </div>
@@ -46,11 +46,11 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, onReset }) => {
                 <img 
                     src={imageUrl || ''} 
                     alt={result.name} 
-                    className="w-full h-[600px] object-cover rounded-sm border border-orange-100 shadow-2xl transition-transform duration-500"
+                    className="w-full h-[400px] md:h-[600px] object-cover rounded-sm border border-orange-100 shadow-2xl transition-transform duration-500"
                 />
-                <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-white p-4 border border-orange-100 rotate-6 hidden md:block shadow-lg">
-                     <p className="text-[8px] text-gray-400 tracking-tighter text-center mt-2 italic font-bold">진단 코드: {result.id}</p>
-                     <div className="mt-4 border-t border-dashed border-gray-200 pt-2 text-center text-[10px] serif-title font-bold text-orange-500">글캉스 공식 인증인</div>
+                <div className="absolute -bottom-4 -right-2 md:-bottom-6 md:-right-6 w-24 h-24 md:w-32 md:h-32 bg-white p-3 md:p-4 border border-orange-100 rotate-6 shadow-lg z-10">
+                     <p className="text-[7px] md:text-[8px] text-gray-400 tracking-tighter text-center mt-1 md:mt-2 italic font-bold">진단 코드: {result.id}</p>
+                     <div className="mt-2 md:mt-4 border-t border-dashed border-gray-200 pt-1 md:pt-2 text-center text-[8px] md:text-[10px] serif-title font-bold text-orange-500">글캉스 공식 인증인</div>
                 </div>
             </div>
           )}
