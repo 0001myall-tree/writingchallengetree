@@ -83,6 +83,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             <div className="w-12 h-[2px] bg-orange-500"></div>
           </div>
 
+
           {/* RFP 4-1. 결과 예시 블러 처리 노출 */}
           <div className="absolute top-4 right-8 hidden md:block scale-75 origin-top-right">
             <div className="p-6 border border-white/20 backdrop-blur-xl bg-black/20 text-white rounded-sm w-64">
