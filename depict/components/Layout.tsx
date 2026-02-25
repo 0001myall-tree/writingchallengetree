@@ -9,7 +9,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             <div className="w-8 h-8 rounded-full border-2 border-orange-500 flex items-center justify-center">
                 <span className="text-orange-500 font-bold text-xs">G</span>
             </div>
-            <h1 className="serif-title text-2xl tracking-widest uppercase font-bold text-gray-800">집필 심리 테스트</h1>
+            <h1 className="serif-title text-lg md:text-2xl tracking-widest uppercase font-bold text-gray-800">집필 심리 테스트</h1>
         </div>
         <nav className="hidden md:flex gap-8 text-xs font-medium tracking-widest text-gray-500">
           <a href="https://tumblbug.com" target="_blank" rel="noopener noreferrer" className="hover:text-orange-500 transition-colors">도서 펀딩</a>
