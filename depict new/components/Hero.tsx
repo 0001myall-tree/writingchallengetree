@@ -70,7 +70,7 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
   <a href="여기에_작가님_펀딩_링크_주소" target="_blank" rel="noreferrer" className="block">
     <div className="relative w-full overflow-hidden rounded-sm shadow-2xl transition-all duration-500 hover:shadow-orange-900/20">
       <img 
-        src="/funding.jpg"  /* 👈 public 폴더에 올린 이미지 이름으로 정확히 써주세요! */
+        src="/funding.png"  /* 👈 public 폴더에 올린 이미지 이름으로 정확히 써주세요! */
         alt="Funding Project" 
         className="w-full h-auto object-contain"
       />
