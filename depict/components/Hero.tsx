@@ -10,17 +10,6 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
     <div className="max-w-5xl mx-auto">
       {/* Intro Text Section */}
       <div className="text-center mb-16 relative">
-        <div className="absolute top-[-40px] left-1/2 -translate-x-1/2 opacity-20 pointer-events-none">
-             <svg width="200" height="100" viewBox="0 0 200 100">
-                <path id="curve" d="M 0 80 Q 100 0 200 80" fill="transparent"/>
-                <text className="text-[11px] font-medium tracking-[0.2em] fill-[#e86a33]">
-                    <textPath xlinkHref="#curve" startOffset="50%" textAnchor="middle">
-                        당신의 문장에 숨겨진 고유한 색채를 찾아서
-                    </textPath>
-                </text>
-            </svg>
-        </div>
-        
         {/* RFP 5-1. 타겟 제한 강조 */}
         <div className="inline-block border border-orange-200 px-4 py-1 mb-6 rounded-full bg-orange-50/50">
             <span className="text-[11px] tracking-widest text-orange-600 font-bold uppercase">⚠️ 소설 창작 경험자 전용 진단</span>
