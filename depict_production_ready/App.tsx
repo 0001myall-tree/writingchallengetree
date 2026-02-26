@@ -1,5 +1,6 @@
 
 import React, { useState, useCallback } from 'react';
+import { Analytics } from "@vercel/analytics/react";
 import { Layout } from './components/Layout';
 import { Hero } from './components/Hero';
 import { QuestionCard } from './components/QuestionCard';
@@ -90,6 +91,8 @@ const App: React.FC = () => {
           onReset={handleReset}
         />
       )}
+
+      <Analytics />
     </Layout>
   );
 };
