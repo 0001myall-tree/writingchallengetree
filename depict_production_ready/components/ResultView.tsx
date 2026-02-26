@@ -1,8 +1,8 @@
-
 import React, { useEffect, useState, useRef } from 'react';
 import { Result } from '../types';
 import { generateResultImage } from '../services/gemini';
 import * as htmlToImage from 'html-to-image';
+import { track } from '@vercel/analytics'; // 👈 1. 추적 기능 가져오기
 
 interface ResultViewProps {
   result: Result;
@@ -14,9 +14,15 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, onReset }) => {
   const [isLoadingImage, setIsLoadingImage] = useState(true);
   const resultRef = useRef<HTMLDivElement>(null);
 
+  // 👈 2. 클릭 시 '어떤 유형의 결과'에서 펀딩을 눌렀는지 기록하는 함수
+  const handleFundingClick = () => {
+    track('Funding_Result_Click', { 
+      resultType: result.name // 어떤 유형(예: 현미경형)이 펀딩을 많이 눌렀는지도 알 수 있어요!
+    });
+  };
+
   useEffect(() => {
     async function fetchImage() {
-      // 1. Check for specific result types
       const staticImageMap: Record<string, string> = {
         '현미경형': '/micro.png',
         '전등 스위치형': '/light-switch.jpg',
@@ -33,7 +39,6 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, onReset }) => {
         return;
       }
 
-      // 2. Fallback
       setIsLoadingImage(true);
       try {
         const url = await generateResultImage(result.imagePrompt);
@@ -59,7 +64,6 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, onReset }) => {
         console.error('Error sharing:', error);
       }
     } else {
-      // Fallback: Copy to clipboard
       try {
         await navigator.clipboard.writeText(window.location.href);
         alert('링크가 클립보드에 복사되었습니다.');
@@ -87,10 +91,8 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, onReset }) => {
     }
   };
 
-  // Split chapters by comma to create a "trajectory" list
   const chapters = result.chapterTitle.split(',').map(c => c.trim());
 
-  // Helper to format result name with line breaks
   const formatResultName = (name: string) => {
     if (name === '투 머치 토크형') {
       return (
@@ -123,7 +125,6 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, onReset }) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20 items-start">
-        {/* Left: AI Generated Visual */}
         <div className="relative md:sticky md:top-8 z-0 w-full px-2 md:px-0">
           {isLoadingImage ? (
             <div className="w-full h-[300px] sm:h-[400px] md:h-[600px] bg-orange-50 flex flex-col items-center justify-center animate-pulse rounded-sm border border-orange-100">
@@ -145,7 +146,6 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, onReset }) => {
           )}
         </div>
 
-        {/* Right: Integrated Description & Solution Trajectory */}
         <div className="py-2 md:py-4 px-2 md:px-0">
           <div className="bg-white p-6 sm:p-8 md:p-12 rounded-sm border border-orange-100 shadow-sm mb-8 w-full">
             <h4 className="text-[10px] md:text-[11px] tracking-widest text-orange-500 mb-6 md:mb-8 flex items-center gap-2 font-bold uppercase">
@@ -156,7 +156,6 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, onReset }) => {
             </div>
           </div>
 
-          {/* Solution Section */}
           <div className="bg-orange-50/30 p-6 sm:p-8 md:p-10 rounded-sm border border-orange-100 border-dashed w-full">
             <h4 className="text-[10px] md:text-[11px] tracking-widest text-orange-600 mb-6 md:mb-8 flex items-center gap-2 font-bold uppercase leading-relaxed break-keep">
               <span className="w-10 h-[1px] bg-orange-300"></span> 책 [막힐 때 바로 찾는 묘사 처방전]에서 도움을 받을 수 있는 챕터
@@ -187,7 +186,6 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, onReset }) => {
         </div>
       </div>
 
-      {/* Conversion Section: CTA */}
       <div className="bg-[#1a1a1a] text-white p-8 sm:p-12 md:p-20 text-center rounded-sm relative overflow-hidden shadow-2xl mx-2 md:mx-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-orange-500/10 rounded-full blur-[80px] md:blur-[100px] pointer-events-none"></div>
 
@@ -204,12 +202,17 @@ export const ResultView: React.FC<ResultViewProps> = ({ result, onReset }) => {
                 href="https://tum.bg/B9Js0E"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative z-10 bg-orange-500 text-white px-6 md:px-10 py-5 text-[13px] md:text-sm font-bold tracking-widest hover:bg-orange-600 transition-all transform hover:-translate-y-1 rounded-sm shadow-lg flex justify-center items-center active:scale-95 w-full block block"
+                onClick={handleFundingClick} // 👈 3-1. 텍스트 버튼 클릭 시 기록!
+                className="relative z-10 bg-orange-500 text-white px-6 md:px-10 py-5 text-[13px] md:text-sm font-bold tracking-widest hover:bg-orange-600 transition-all transform hover:-translate-y-1 rounded-sm shadow-lg flex justify-center items-center active:scale-95 w-full block"
               >
                 👉 펀딩 페이지 보러 가기
               </a>
-              {/* Decorative Funding Image */}
-              <a href="https://tum.bg/B9Js0E" target="_blank" rel="noopener noreferrer">
+              <a 
+                href="https://tum.bg/B9Js0E" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={handleFundingClick} // 👈 3-2. 이미지 버튼 클릭 시에도 기록!
+              >
                 <img
                   src="/funding.png"
                   alt="Funding Decoration"
