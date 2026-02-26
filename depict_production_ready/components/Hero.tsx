@@ -1,16 +1,20 @@
-
 import React from 'react';
+import { track } from '@vercel/analytics'; // 👈 1. 추적 기능 가져오기
 
 interface HeroProps {
   onStart: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({ onStart }) => {
+  // 👈 2. 클릭했을 때 기록을 남기는 함수 만들기
+  const handleFundingClick = () => {
+    track('Funding_Teaser_Click'); // Vercel 대시보드에 기록될 이름
+  };
+
   return (
     <div className="max-w-5xl mx-auto">
       {/* Intro Text Section */}
       <div className="text-center mb-16 relative">
-        {/* RFP 5-1. 타겟 제한 강조 */}
         <div className="inline-block border border-orange-200 px-4 py-1 mb-6 rounded-full bg-orange-50/50">
           <span className="text-[11px] tracking-widest text-orange-600 font-bold uppercase">⚠️ 소설 창작 경험자 전용 진단</span>
         </div>
@@ -27,7 +31,6 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             <div className="bg-indigo-50 border border-indigo-100 p-3 md:p-4 rounded-2xl shadow-sm mb-4 relative w-full">
               <span className="text-[11px] md:text-sm font-bold text-indigo-600 block mb-2">돌직구형?</span>
               <span className="text-2xl md:text-3xl">🎯</span>
-              {/* Triangle */}
               <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-indigo-50"></div>
             </div>
           </div>
@@ -37,7 +40,6 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             <div className="bg-orange-50 border border-orange-100 p-3 md:p-4 rounded-2xl shadow-sm mb-4 relative w-full">
               <span className="text-[11px] md:text-sm font-bold text-orange-600 block mb-2">스위치형?</span>
               <span className="text-2xl md:text-3xl">💡</span>
-              {/* Triangle */}
               <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-orange-50"></div>
             </div>
           </div>
@@ -47,7 +49,6 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             <div className="bg-emerald-50 border border-emerald-100 p-3 md:p-4 rounded-2xl shadow-sm mb-4 relative w-full">
               <span className="text-[11px] md:text-sm font-bold text-emerald-600 block mb-2">현미경형?</span>
               <span className="text-2xl md:text-3xl">🔬</span>
-              {/* Triangle */}
               <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[8px] border-t-emerald-50"></div>
             </div>
           </div>
@@ -65,9 +66,15 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
         </button>
       </div>
 
-      {/* Single Large Hero Image Section with Blur Effect for teaser */}
+      {/* Single Large Hero Image Section */}
       <div className="relative mb-24 px-4 md:px-0">
-        <a href="https://tum.bg/B9Js0E" target="_blank" rel="noopener noreferrer" className="block relative w-full h-[180px] md:h-[220px] overflow-hidden rounded-sm shadow-2xl group cursor-pointer">
+        <a 
+          href="https://tum.bg/B9Js0E" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          onClick={handleFundingClick} // 👈 3. 버튼 클릭 시 함수 실행!
+          className="block relative w-full h-[180px] md:h-[220px] overflow-hidden rounded-sm shadow-2xl group cursor-pointer"
+        >
           <img
             src="/funding.png"
             alt="Funding"
@@ -83,7 +90,6 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
             <div className="w-12 h-[2px] bg-orange-500"></div>
           </div>
 
-          {/* RFP 4-1. 결과 예시 블러 처리 노출 */}
           <div className="absolute top-4 right-8 hidden md:block scale-75 origin-top-right">
             <div className="p-6 border border-white/20 backdrop-blur-xl bg-black/20 text-white rounded-sm w-64">
               <p className="text-[11px] tracking-widest mb-4 font-bold text-orange-400 uppercase">Diagnosis Sample</p>
@@ -97,13 +103,11 @@ export const Hero: React.FC<HeroProps> = ({ onStart }) => {
           </div>
         </a>
 
-        {/* Decorative corner element */}
         <div className="absolute -bottom-6 -right-2 md:-bottom-8 md:-right-8 w-16 h-16 md:w-24 md:h-24 bg-[#fdfcf8] border border-orange-100 flex items-center justify-center rotate-3 shadow-lg z-20">
           <span className="text-2xl md:text-4xl text-orange-200">🖋️</span>
         </div>
       </div>
 
-      {/* Short secondary intro for credibility */}
       <div className="max-w-3xl mx-auto text-center pb-24 border-b border-orange-100">
         <p className="text-sm md:text-base text-gray-500 leading-loose">
           본 진단은 <strong>실전 창작 유형</strong>을 기반으로 설계되어,<br />
