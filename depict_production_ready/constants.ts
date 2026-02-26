@@ -123,7 +123,7 @@ export const RESULTS: Record<WriterType, Result> = {
     id: 'SHERIFF',
     name: '보안관형',
     definition: "안전 제일주의 / 익숙한 표현 반복",
-    description: "당신은 글을 쓸 때 안전한 선택을 우선하는 성향이 강한 타입입니다. 이 타입은 실패를 두려워합니다. 그래서 이미 문제 없었던 표현, 이미 써봤던 문장을 계속 선택합니다.\n\n하지만 자칫 묘사가 평범하게 느껴지거나 문장이 늘 비슷한 인상을 줄 수 있습니다.\n\n이 타입에게 필요한 건 안전하게 모험할 수 있는 기준입니다.",
+    description: "당신은 글을 쓸 때 안전한 선택을 우선하는 성향이 강한 타입입니다. 이 타입은 안정적인 대신 실패를 두려워합니다. 그래서 이미 문제 없었던 표현, 이미 써봤던 문장을 계속 선택합니다.\n\n하지만 자칫 묘사가 평범하게 느껴지거나 문장이 늘 비슷한 인상을 줄 수 있습니다.\n\n이 타입에게 필요한 건 안전하게 모험할 수 있는 기준입니다.",
     chapterTitle: "CHAPTER 2. 막힐 때 즉효 처방\n(막힐 때마다 다양한 표현을 찾아 쓸 수 있습니다.)\n\n01...배경 묘사\n02...행동 묘사\n03...인물 묘사\n04...표정 묘사\n05...대사 사이 묘사\n06...여운을 남기는 마무리 묘사",
     imagePrompt: "A classic golden sheriff badge lying on a stack of old manuscripts, steady and warm lighting, professional writer's atmosphere"
   },
@@ -131,7 +131,7 @@ export const RESULTS: Record<WriterType, Result> = {
     id: 'TOO_MUCH_TALK',
     name: '투 머치 토크형',
     definition: "수려해서 가끔 넘치는 당신",
-    description: "당신은 표현력이 좋고, 하고 싶은 말이 많은 타입입니다. 하지만 전부를 말하려다 보면 묘사가 길어지고 장면이 지루하게 느껴질 수 있습니다.\n\n이 타입에게 필요한 건 줄이는 기술이 아니라 남길 걸 고르는 기준입니다.",
+    description: "당신은 표현력이 좋고, 하고 싶은 말이 많은 타입입니다. 하지만 전부를 말하려다 보면 묘사가 길어지고 장면이 지루하게 느껴질 수 있습니다.\n\n이 타입에게 필요한 건 무작정 줄이는 기술이 아니라 무엇을 남기면 좋을지 고르는 기준입니다.",
     chapterTitle: "CHAPTER 1 – 02: 지루한 벽돌 묘사",
     imagePrompt: "A massive, solid wall made of ancient bricks, some bricks are engraved with tiny illegible text, dramatic warm lighting, cinematic texture, symbolic of dense writing"
   },
